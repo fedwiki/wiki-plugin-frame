@@ -1,0 +1,37 @@
+{
+  "title": "About Frame Plugin",
+  "story": [
+  {
+    "type": "paragraph",
+    "id": "4fe62b8656f48d73",
+    "text": "Here we describe the purpose of the plugin and include a sample."
+  },
+  {
+    "type": "frame",
+    "id": "e920ca24b7386c54",
+    "text": "This is text in the new plugin. You can *double-click* to edit it too."
+  }
+],
+  "journal": [
+  {
+    "type": "create",
+    "item": {
+      "title": "About Frame Plugin",
+      "story": [
+  {
+    "type": "paragraph",
+    "id": "4fe62b8656f48d73",
+    "text": "Here we describe the purpose of the plugin and include a sample."
+  },
+  {
+    "type": "frame",
+    "id": "e920ca24b7386c54",
+    "text": "This is text in the new plugin. You can *double-click* to edit it too."
+  }
+]
+    },
+    "date": 1519533113000,
+    "certificate": "from mkplugin.sh"
+  }
+]
+}
