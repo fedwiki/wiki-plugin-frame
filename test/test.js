@@ -9,9 +9,26 @@
     describe('expand', () => {
       it('can make itallic', () => {
         var result = frame.expand('hello *world*');
-        return expect(result).to.be('hello <i>world</i>');
+        expect(result).to.be('hello <i>world</i>');
       });
     });
+  });
+
+  describe('parse', () => {
+    var result = frame.parse(`https://example.com/something
+caption to offer context to The Reader
+and offer many lines to The Author`);
+
+    it('uses first line for IFRAME SRC', () => {
+      expect(result.src).to.be('https://example.com/something');
+    });
+
+    it('uses the rest of the text as a caption', () => {
+      expect(result.caption).to.contain('The Reader');
+      expect(result.caption).to.contain('The Author');
+    });
+
+
   });
 
 }).call(this);
