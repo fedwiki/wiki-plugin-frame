@@ -14,8 +14,17 @@
 
   parse = text => {
     const [src, ...rest] = text.split("\n");
-    const caption = rest.join("\n");
-    return {src, caption};
+    const re = /^HEIGHT (\w+)/;
+    const caption = rest.filter(line => !re.test(line)).join("\n");
+    let height;
+    for (let line of rest) {
+      matchData = line.match(re);
+      if (matchData) {
+        height = matchData[1];
+        break;
+      }
+    }
+    return {src, caption, height};
   };
 
   emit = ($item, item) => {
@@ -30,6 +39,10 @@
       style: 'border: none;',
       src: parsed.src
     });
+    if (parsed.height) {
+      $item.find('iframe')
+        .attr('height', parsed.height);
+    }
     $item.find('p').html(expand(parsed.caption));
     return $item;
   };
