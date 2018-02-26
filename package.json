@@ -9,9 +9,9 @@
     "plugin"
   ],
   "author": {
-    "name": "Your Name",
-    "email": "you@example.com",
-    "url": "http://example.com"
+    "name": "Eric Dobbs",
+    "email": "eric@dobbse.net",
+    "url": "https://dobbse.net"
   },
   "contributors": [],
   "scripts": {
@@ -29,10 +29,10 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/fedwiki/wiki-plugin-frame.git"
+    "url": "https://github.com/dobbs/wiki-plugin-frame.git"
   },
   "bugs": {
-    "url": "https://github.com/fedwiki/wiki-plugin-frame/issues"
+    "url": "https://github.com/dobbs/wiki-plugin-frame/issues"
   },
   "engines": {
     "node": ">=0.10"

@@ -1,6 +1,6 @@
 # Federated Wiki - Frame Plugin
 
-This plugin, type: frame, extends the markup of the federated wiki.
+Frame embeds external web pages in an iframe.
 
 ## Build
 
@@ -10,4 +10,3 @@ This plugin, type: frame, extends the markup of the federated wiki.
 ## License
 
 MIT
-
