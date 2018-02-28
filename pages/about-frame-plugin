@@ -4,12 +4,12 @@
     {
       "type": "paragraph",
       "id": "4fe62b8656f48d73",
-      "text": "Use the frame plugin to display external web pages in a wiki page."
+      "text": "Use the frame plugin to display external web pages in wiki."
     },
     {
       "type": "frame",
       "id": "e920ca24b7386c54",
-      "text": "//apparatus.wiki.dbbs.co/?load=examples/Wheel+Diagram.json&fullScreen=1&viewOnly=1&editLink=1&regionOfInterest={\"x\":[-6,6],\"y\":[-1,3]}\n\nWe show an example of embedding an *apparatus* diagram into wiki.  For more info about Apparatus, see [http://aprt.us aprt.us]."
+      "text": "//en.m.wikipedia.org/wiki/Extreme_programming\n\nHEIGHT 300\n\nWikipedia offers mobile-friendly URLs which fit nicely within a frame in federated wiki."
     },
     {
       "type": "paragraph",
@@ -24,7 +24,7 @@
     {
       "type": "markdown",
       "id": "2d363e7e23cada68",
-      "text": "Everything else you type will be used as the caption.  The markup also understands wiki links.\n"
+      "text": "Everything else you type will be used as the caption.  Captions also correctly expand wiki links.\n"
     },
     {
       "type": "markdown",
@@ -34,7 +34,17 @@
     {
       "type": "code",
       "id": "5ece0be26a2bca40",
-      "text": "https://www.youtube-nocookie.com/embed/XqxwwuUdsp4&t=13m10s&rel=0\nHEIGHT 150\n\n13 minutes into this interview Ward Cunningham shares a few things that Wikipedia really improved.\n\nThe rest of this video discusses origins of the wiki-wiki web and the symbiotic growth of wiki, software patterns, and agile software development."
+      "text": "//en.m.wikipedia.org/wiki/Extreme_programming\n\nHEIGHT 300\n\nWikipedia offers mobile-friendly URLs which fit nicely within a frame in federated wiki."
+    },
+    {
+      "type": "paragraph",
+      "id": "42994bef7efbc924",
+      "text": "Frames can be usefully employed to experiment with sharing web-based services before investing time building a plugin."
+    },
+    {
+      "type": "frame",
+      "id": "d2e7972d58c76942",
+      "text": "//beta.observablehq.com/@mbostock/circumcircle\n\nHEIGHT 400\n\nHere we share an explorable from [https://observablehq.com Observable]."
     }
   ],
   "journal": [
@@ -133,6 +143,86 @@
       "after": "e4aa907442509492",
       "id": "5ece0be26a2bca40",
       "date": 1519611761440
-    }
+    },
+    {
+      "type": "edit",
+      "id": "e920ca24b7386c54",
+      "item": {
+        "type": "frame",
+        "id": "e920ca24b7386c54",
+        "text": "//en.m.wikipedia.org/wiki/Extreme_programming\n\nHEIGHT 300\n\nWikipedia offers mobile-friendly URLs which fit nicely within a frame in federated wiki."
+      },
+      "date": 1519853831572
+    },
+    {
+      "type": "edit",
+      "id": "5ece0be26a2bca40",
+      "item": {
+        "type": "code",
+        "id": "5ece0be26a2bca40",
+        "text": "//en.m.wikipedia.org/wiki/Extreme_programming\n\nHEIGHT 300\n\nWikipedia offers mobile-friendly URLs which fit nicely within a frame in federated wiki."
+      },
+      "date": 1519853860784
+    },
+    {
+      "type": "edit",
+      "id": "2d363e7e23cada68",
+      "item": {
+        "type": "markdown",
+        "id": "2d363e7e23cada68",
+        "text": "Everything else you type will be used as the caption.  Captions also correctly expand wiki links.\n"
+      },
+      "date": 1519853912420
+    },
+    {
+      "type": "edit",
+      "id": "4fe62b8656f48d73",
+      "item": {
+        "type": "paragraph",
+        "id": "4fe62b8656f48d73",
+        "text": "Use the frame plugin to display external web pages in wiki."
+      },
+      "date": 1519853929075
+    },
+    {
+      "item": {
+        "type": "factory",
+        "id": "42994bef7efbc924"
+      },
+      "id": "42994bef7efbc924",
+      "type": "add",
+      "after": "5ece0be26a2bca40",
+      "date": 1519853941176
+    },
+    {
+      "type": "edit",
+      "id": "42994bef7efbc924",
+      "item": {
+        "type": "paragraph",
+        "id": "42994bef7efbc924",
+        "text": "Frames can be usefully employed to experiment with sharing web-based services before investing time building a plugin."
+      },
+      "date": 1519854038543
+    },
+    {
+      "item": {
+        "type": "factory",
+        "id": "d2e7972d58c76942"
+      },
+      "id": "d2e7972d58c76942",
+      "type": "add",
+      "after": "42994bef7efbc924",
+      "date": 1519854091688
+    },
+    {
+      "type": "edit",
+      "id": "d2e7972d58c76942",
+      "item": {
+        "type": "frame",
+        "id": "d2e7972d58c76942",
+        "text": "//beta.observablehq.com/@mbostock/circumcircle\n\nHEIGHT 400\n\nHere we share an explorable from [https://observablehq.com Observable]."
+      },
+      "date": 1519854213761
+    },
   ]
 }
