@@ -1,5 +1,6 @@
 (function() {
-  var bind, emit, parse, expand, wiki, validateDomain;
+  var bind, emit, parse, expand, wiki, location,
+      validateDomain, drawFrame, drawError;
 
   expand = text => {
     return wiki.resolveLinks(
@@ -38,9 +39,34 @@
         break;
       }
     }
+    var sandbox = (result.hostname === location.hostname)
+        ? 'allow-same-origin'
+        : 'allow-scripts allow-same-origin';
+    result.sandbox = sandbox;
     result.caption = caption;
     result.height = height;
     return result;
+  };
+
+  drawFrame = ($item, item, parsed) => {
+    $item.append('<iframe></iframe><p></p>');
+    $item.find('iframe').attr({
+      width: '100%',
+      style: 'border: none;',
+      src: parsed.src,
+      sandbox: parsed.sandbox
+    });
+    if (parsed.height) {
+      $item.find('iframe')
+        .attr('height', parsed.height);
+    }
+    $item.find('p').html(expand(parsed.caption));
+  };
+
+  drawError = ($item, item, parsed) => {
+    $item.append(`
+        <pre class="error">${parsed.error}</pre>
+        <pre>${item.text}</pre>`);
   };
 
   emit = ($item, item) => {
@@ -50,21 +76,9 @@
       'padding': '15px'
     });
     if (!parsed.hasOwnProperty('error')) {
-      $item.append('<iframe></iframe><p></p>');
-      $item.find('iframe').attr({
-        width: '100%',
-        style: 'border: none;',
-        src: parsed.src
-      });
-      if (parsed.height) {
-        $item.find('iframe')
-          .attr('height', parsed.height);
-      }
-      $item.find('p').html(expand(parsed.caption));
-    } else {
-      $item.append(`
-        <pre class="error">${parsed.error}</pre>
-        <pre>${item.text}</pre>`);
+      drawFrame($item, item, parsed);
+    } else { // display error
+      drawError($item, item, parsed);
     }
     return $item;
   };
@@ -77,11 +91,13 @@
 
   if (typeof window !== "undefined" && window !== null) {
     wiki = window.wiki;
+    location = window.location;
     window.plugins.frame = {emit, bind};
   }
 
   if (typeof module !== "undefined" && module !== null) {
     wiki = {resolveLinks: (text, escape) => escape(text)};
+    location = {hostname: 'example.com'};
     module.exports = {expand, parse};
   }
 
