@@ -43,8 +43,8 @@
     },
     {
       "type": "frame",
-      "id": "d2e7972d58c76942",
-      "text": "//beta.observablehq.com/@mbostock/circumcircle\n\nHEIGHT 400\n\nHere we share an explorable from [https://observablehq.com Observable]."
+      "id": "e920ca24b7386c54",
+      "text": "//apparatus.wiki.dbbs.co/?load=examples/Wheel+Diagram.json&fullScreen=1&viewOnly=1&editLink=1&regionOfInterest={\"x\":[-6,6],\"y\":[-1,3]} \n\nHere we share an diagram from [http://aprt.us Apparatus]"
     }
   ],
   "journal": [
@@ -205,24 +205,23 @@
       "date": 1519854038543
     },
     {
-      "item": {
-        "type": "factory",
-        "id": "d2e7972d58c76942"
-      },
-      "id": "d2e7972d58c76942",
-      "type": "add",
-      "after": "42994bef7efbc924",
-      "date": 1519854091688
+      "type": "fork",
+      "date": 1521609229574
+    },
+    {
+      "type": "remove",
+      "id": "4fe62b8656f48d73",
+      "date": 1521609235690
     },
     {
       "type": "edit",
-      "id": "d2e7972d58c76942",
+      "id": "e920ca24b7386c54",
       "item": {
         "type": "frame",
-        "id": "d2e7972d58c76942",
-        "text": "//beta.observablehq.com/@mbostock/circumcircle\n\nHEIGHT 400\n\nHere we share an explorable from [https://observablehq.com Observable]."
+        "id": "e920ca24b7386c54",
+        "text": "//apparatus.wiki.dbbs.co/?load=examples/Wheel+Diagram.json&fullScreen=1&viewOnly=1&editLink=1&regionOfInterest={\"x\":[-6,6],\"y\":[-1,3]} \n\nHere we share an diagram from [http://aprt.us Apparatus]"
       },
-      "date": 1519854213761
+      "date": 1521609247706
     }
   ]
 }
