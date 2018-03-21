@@ -15,6 +15,25 @@
   });
 
   describe('parse', () => {
+    describe('SRC', () => {
+      it('accepts http', () => {
+        expect(frame.parse('http://example.com'))
+          .to.have.property('src', 'http://example.com');
+      });
+      it('accepts https', () => {
+        expect(frame.parse('https://example.com').src)
+          .to.be('https://example.com');
+      });
+      it('accepts protocol-relative url', () => {
+        expect(frame.parse('//example.com').src)
+          .to.be('//example.com');
+      });
+      it('rejects missing domain', () => {
+        expect(frame.parse('/some/path.html'))
+          .to.have.property('error', 'Error: frame src must include domain name');
+      });
+    });
+
     var result = frame.parse(`https://example.com/something
 caption to offer context to The Reader
 HEIGHT 200
