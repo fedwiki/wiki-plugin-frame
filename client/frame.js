@@ -39,10 +39,7 @@
         break
       }
     }
-    var sandbox = (result.hostname === location.hostname)
-        ? 'allow-same-origin'
-        : 'allow-scripts allow-same-origin'
-    result.sandbox = sandbox
+    result.sandbox = 'allow-scripts'
     result.caption = caption
     result.height = height
     return result
