@@ -14,7 +14,7 @@
   }
 
   validateDomain = url => {
-    const re = /^(?:https?:)?\/\/(([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,})(\/|$)/i
+    const re = /^(?:https?:)?\/\/(([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,}(:[0-9]{2,})?)(\/|$)/i
     const matchData = url.match(re)
     const src = url
     if (matchData) {

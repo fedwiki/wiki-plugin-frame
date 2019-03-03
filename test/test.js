@@ -30,6 +30,13 @@
         expect(result)
           .not.to.have.property('error');
       });
+      it('accepts port numbers', () => {
+        const result = frame.parse('https://example.com:3000');
+        expect(result)
+          .to.have.property('src', 'https://example.com:3000');
+        expect(result)
+          .not.to.have.property('error');
+      });
       it('accepts protocol-relative url', () => {
         const result = frame.parse('//example.com');
         expect(result)
