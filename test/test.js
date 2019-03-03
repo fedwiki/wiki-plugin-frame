@@ -8,7 +8,7 @@
   describe('frame plugin', () => {
     describe('expand', () => {
       it('can make itallic', () => {
-        var result = frame.expand('hello *world*');
+        const result = frame.expand('hello *world*');
         expect(result).to.be('hello <i>world</i>');
       });
     });
@@ -17,24 +17,36 @@
   describe('parse', () => {
     describe('SRC', () => {
       it('accepts http', () => {
-        expect(frame.parse('http://example.com'))
+        const result = frame.parse('http://example.com');
+        expect(result)
           .to.have.property('src', 'http://example.com');
+        expect(result)
+          .not.to.have.property('error');
       });
       it('accepts https', () => {
-        expect(frame.parse('https://example.com').src)
-          .to.be('https://example.com');
+        const result = frame.parse('https://example.com');
+        expect(result)
+          .to.have.property('src', 'https://example.com');
+        expect(result)
+          .not.to.have.property('error');
       });
       it('accepts protocol-relative url', () => {
-        expect(frame.parse('//example.com').src)
-          .to.be('//example.com');
+        const result = frame.parse('//example.com');
+        expect(result)
+          .to.have.property('src', '//example.com');
+        expect(result)
+          .not.to.have.property('error');
       });
       it('rejects missing domain', () => {
-        expect(frame.parse('/some/path.html'))
+        const result = frame.parse('/some/path.html');
+        expect(result)
+          .to.have.property('src', '/some/path.html');
+        expect(result)
           .to.have.property('error', 'Error: frame src must include domain name');
       });
     });
 
-    var result = frame.parse(`https://example.com/something
+    const result = frame.parse(`https://example.com/something
 caption to offer context to The Reader
 HEIGHT 200
 offer many lines to The Author`);
@@ -50,9 +62,7 @@ offer many lines to The Author`);
     });
 
     it('recognizes HEIGHT', () => {
-
       expect(result.height).to.be('200');
     });
   });
-
 }).call(this);
