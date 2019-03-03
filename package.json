@@ -1,6 +1,6 @@
 {
   "name": "wiki-plugin-frame",
-  "version": "0.2.0",
+  "version": "0.2.2",
   "description": "Federated Wiki - Frame Plugin",
   "keywords": [
     "frame",
@@ -37,6 +37,6 @@
     "url": "https://github.com/dobbs/wiki-plugin-frame/issues"
   },
   "engines": {
-    "node": ">=0.10"
+    "node": "8"
   }
 }
