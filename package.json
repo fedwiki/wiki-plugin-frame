@@ -13,7 +13,9 @@
     "email": "eric@dobbse.net",
     "url": "https://dobbse.net"
   },
-  "contributors": [],
+  "contributors": [
+    "Eric Dobbs <eric@dobbse.net>"
+  ],
   "scripts": {
     "test": "mocha"
   },
