@@ -86,10 +86,31 @@
     })
   }
 
+  const frameListener = function(event) {
+    const {data} = event;
+    const {action, page=null, pages={}, title=null} = data;
+    let options
+
+    switch (action) {
+    case "showResult":
+      wiki.showResult(wiki.newPage(page))
+      break
+    case "doInternalLink":
+      wiki.doInternalLink(title)
+      break
+    default:
+      console.error({where:'frameListener', message: "unknown action", data})
+    }
+  }
+
   if (typeof window !== "undefined" && window !== null) {
     wiki = window.wiki
     location = window.location
     window.plugins.frame = {emit, bind}
+    if (typeof window.frameListener !== "undefined" || window.frameListener == null) {
+      window.frameListener = frameListener
+      window.addEventListener("message", frameListener)
+    }
   }
 
   if (typeof module !== "undefined" && module !== null) {
