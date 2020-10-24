@@ -39,7 +39,12 @@
     {
       "type": "paragraph",
       "id": "42994bef7efbc924",
-      "text": "Frames can be usefully employed to experiment with sharing web-based services before investing time building a plugin."
+      "text": "Frames offer another avenue for integrating wiki with external services."
+    },
+    {
+      "type": "paragraph",
+      "id": "04997f9da1a82aa7",
+      "text": "See [[About Frame Integrations]]"
     }
   ],
   "journal": [
@@ -137,6 +142,27 @@
       "after": "5ece0be26a2bca40",
       "id": "42994bef7efbc924",
       "date": 1551565752525
+    },
+    {
+      "type": "edit",
+      "id": "42994bef7efbc924",
+      "item": {
+        "type": "paragraph",
+        "id": "42994bef7efbc924",
+        "text": "Frames offer another avenue for integrating wiki with external services."
+      },
+      "date": 1603566766935
+    },
+    {
+      "type": "add",
+      "id": "04997f9da1a82aa7",
+      "item": {
+        "type": "paragraph",
+        "id": "04997f9da1a82aa7",
+        "text": "See [[About Frame Integrations]]"
+      },
+      "after": "42994bef7efbc924",
+      "date": 1603566950759
     }
   ]
 }

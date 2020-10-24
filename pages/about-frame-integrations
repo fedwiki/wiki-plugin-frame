@@ -1,0 +1,256 @@
+{
+  "title": "About Frame Integrations",
+  "story": [
+    {
+      "type": "paragraph",
+      "id": "6ff6d374a11a6370",
+      "text": "The Frame plugin offers several hooks for authors interested in extending the behavior of federated wiki. JavaScript programs in the framed content can use the postMessage() protocol to tell the wiki client to follow a collaborative link, create a ghost page, or import pages into the hosting wiki."
+    },
+    {
+      "type": "paragraph",
+      "id": "855bf39f7522b7aa",
+      "text": "Here is a general example of how to integrate an external page with wiki. Attach a click handler to an element—probably a button or link—in your page. Within the click handler call postMessage() on the window parent with one of three actions and related payloads shown below."
+    },
+    {
+      "type": "code",
+      "id": "b7984837dcad6d80",
+      "text": "<button>Click Me</button>\n<script>\nconst pageKey = window.frameElement.name;\n\nfunction itemId() {\n  return Math.abs(Math.random()*1e20|0).toString(16)\n}\n\ndocument.querySelector('button')\n  .addEventListener('click', event => {\n    window.parent.postMessage({\n      action: ...\n      ...\n      pageKey,\n      keepLinup: event.shiftKey\n  });\n});\n</script>"
+    },
+    {
+      "type": "paragraph",
+      "id": "3026a5a65dfe6cff",
+      "text": "Note: The pageKey and keepLineup properties enable the button inside the frame to behave the same way wiki readers have come to expect from links and buttons."
+    },
+    {
+      "type": "markdown",
+      "id": "eadb61e1eb8c3cd3",
+      "text": "# Open an Existing Page"
+    },
+    {
+      "type": "code",
+      "id": "63f623e58e40ba66",
+      "text": "{\n  action:\"doInternalLink\",\n  title: \"About Frame Plugin\",\n  ...\n}"
+    },
+    {
+      "type": "markdown",
+      "id": "5a7e5c8ab791e977",
+      "text": "# Create a Ghost Page"
+    },
+    {
+      "type": "code",
+      "id": "d5c957014e3db5ea",
+      "text": "{\n  action:\"showResult\",\n  page: {\n    title: \"Hello, World!\", story: [\n    {\n      type: \"paragraph\",\n      text: \"Greetings from frame content!\",\n      id: itemId()\n    }\n  ]},\n  ...\n}"
+    },
+    {
+      "type": "markdown",
+      "id": "5a6b8c587141a3eb",
+      "text": "# Import Many Pages"
+    },
+    {
+      "type": "code",
+      "id": "3de1757fd5b8c9bc",
+      "text": "{\n  action:\"import\",\n  pages: {\n    \"hello-world\": {\n      title: \"Hello, World!\", story: [\n      {\n        type: \"paragraph\",\n        text: \"Greetings from frame content!\",\n        id: itemId()\n      }\n    ]},\n    \"greetings-programs\": {\n      title: \"Greetings, Programs!\", story: [\n      {\n        type: \"paragraph\",\n        text: \"We're inside the MCP cone!\",\n        id: itemId()\n      }\n    ]}\n  },\n  ...\n}"
+    },
+    {
+      "type": "paragraph",
+      "id": "f9588b75ae06132f",
+      "text": "There are many other resources around the federation about extending wiki in interesting and novel ways."
+    },
+    {
+      "type": "reference",
+      "id": "0a9a10dbad6de97e",
+      "site": "ward.asia.wiki.org",
+      "slug": "json-schema",
+      "title": "JSON Schema",
+      "text": "We define the schema for federated wiki pages to the depth that we know it. We use a BNF-like notation to suggest JSON elements. Any ambiguity will be resolved by examining the example. We close with a brief reflection on the successes of the format."
+    },
+    {
+      "type": "reference",
+      "id": "efed4b56d68046d4",
+      "site": "ward.asia.wiki.org",
+      "slug": "outpost-thinking",
+      "title": "Outpost Thinking",
+      "text": "We built the federation based on the promiscuous sharing of simple things with the hope that this would lead the community to save indefinitely things worth saving. Within a year we had moved from ruby to node without leaving ruby sites behind. Now, in the federation's ninth year, we consider how this process might be further distributed."
+    },
+    {
+      "type": "reference",
+      "id": "c75bdb249c2d20c0",
+      "site": "plugins.fed.wiki.org",
+      "slug": "about-plugins",
+      "title": "About Plugins",
+      "text": "We explain federated wiki plugins. We define their role interpreting content, recount our experience writing many, describe principles and strategies for future plugins, and offer a step-by-step guide for new plugin authors. We'll also collect pointers here to good plugins when they emerge."
+    }
+  ],
+  "journal": [
+    {
+      "type": "create",
+      "item": {
+        "title": "About Frame Integrations",
+        "story": []
+      },
+      "date": 1603572981338
+    },
+    {
+      "id": "6ff6d374a11a6370",
+      "type": "add",
+      "item": {
+        "type": "paragraph",
+        "id": "6ff6d374a11a6370",
+        "text": "The Frame plugin offers several hooks for authors interested in extending the behavior of federated wiki. JavaScript programs in the framed content can use the postMessage() protocol to tell the wiki client to follow a collaborative link, create a ghost page, or import pages into the hosting wiki."
+      },
+      "date": 1603573104162
+    },
+    {
+      "id": "855bf39f7522b7aa",
+      "type": "add",
+      "item": {
+        "type": "paragraph",
+        "id": "855bf39f7522b7aa",
+        "text": "Here is a general example of how to integrate an external page with wiki. Attach a click handler to an element—probably a button or link—in your page. Within the click handler call postMessage() on the window parent with one of three actions and related payloads shown below."
+      },
+      "after": "6ff6d374a11a6370",
+      "date": 1603573108024
+    },
+    {
+      "id": "b7984837dcad6d80",
+      "type": "add",
+      "item": {
+        "type": "code",
+        "id": "b7984837dcad6d80",
+        "text": "<button>Click Me</button>\n<script>\nconst pageKey = window.frameElement.name;\n\nfunction itemId() {\n  return Math.abs(Math.random()*1e20|0).toString(16)\n}\n\ndocument.querySelector('button')\n  .addEventListener('click', event => {\n    window.parent.postMessage({\n      action: ...\n      ...\n      pageKey,\n      keepLinup: event.shiftKey\n  });\n});\n</script>"
+      },
+      "after": "855bf39f7522b7aa",
+      "date": 1603573110726
+    },
+    {
+      "id": "3026a5a65dfe6cff",
+      "type": "add",
+      "item": {
+        "type": "paragraph",
+        "id": "3026a5a65dfe6cff",
+        "text": "Note: The pageKey and keepLineup properties enable the button inside the frame to behave the same way wiki readers have come to expect from links and buttons."
+      },
+      "after": "b7984837dcad6d80",
+      "date": 1603573115187
+    },
+    {
+      "id": "eadb61e1eb8c3cd3",
+      "type": "add",
+      "item": {
+        "type": "markdown",
+        "id": "eadb61e1eb8c3cd3",
+        "text": "# Open an Existing Page"
+      },
+      "after": "3026a5a65dfe6cff",
+      "date": 1603573118998
+    },
+    {
+      "id": "63f623e58e40ba66",
+      "type": "add",
+      "item": {
+        "type": "code",
+        "id": "63f623e58e40ba66",
+        "text": "{\n  action:\"doInternalLink\",\n  title: \"About Frame Plugin\",\n  ...\n}"
+      },
+      "after": "eadb61e1eb8c3cd3",
+      "date": 1603573121334
+    },
+    {
+      "id": "5a7e5c8ab791e977",
+      "type": "add",
+      "item": {
+        "type": "markdown",
+        "id": "5a7e5c8ab791e977",
+        "text": "# Create a Ghost Page"
+      },
+      "after": "63f623e58e40ba66",
+      "date": 1603573123547
+    },
+    {
+      "id": "d5c957014e3db5ea",
+      "type": "add",
+      "item": {
+        "type": "code",
+        "id": "d5c957014e3db5ea",
+        "text": "{\n  action:\"showResult\",\n  page: {\n    title: \"Hello, World!\", story: [\n    {\n      type: \"paragraph\",\n      text: \"Greetings from frame content!\",\n      id: itemId()\n    }\n  ]},\n  ...\n}"
+      },
+      "after": "5a7e5c8ab791e977",
+      "date": 1603573129928
+    },
+    {
+      "id": "5a6b8c587141a3eb",
+      "type": "add",
+      "item": {
+        "type": "markdown",
+        "id": "5a6b8c587141a3eb",
+        "text": "# Import Many Pages"
+      },
+      "after": "d5c957014e3db5ea",
+      "date": 1603573134879
+    },
+    {
+      "id": "3de1757fd5b8c9bc",
+      "type": "add",
+      "item": {
+        "type": "code",
+        "id": "3de1757fd5b8c9bc",
+        "text": "{\n  action:\"import\",\n  pages: {\n    \"hello-world\": {\n      title: \"Hello, World!\", story: [\n      {\n        type: \"paragraph\",\n        text: \"Greetings from frame content!\",\n        id: itemId()\n      }\n    ]},\n    \"greetings-programs\": {\n      title: \"Greetings, Programs!\", story: [\n      {\n        type: \"paragraph\",\n        text: \"We're inside the MCP cone!\",\n        id: itemId()\n      }\n    ]}\n  },\n  ...\n}"
+      },
+      "after": "5a6b8c587141a3eb",
+      "date": 1603573143363
+    },
+    {
+      "id": "f9588b75ae06132f",
+      "type": "add",
+      "item": {
+        "type": "paragraph",
+        "id": "f9588b75ae06132f",
+        "text": "There are many other resources around the federation about extending wiki in interesting and novel ways."
+      },
+      "after": "3de1757fd5b8c9bc",
+      "date": 1603573149700
+    },
+    {
+      "id": "0a9a10dbad6de97e",
+      "type": "add",
+      "item": {
+        "type": "reference",
+        "id": "0a9a10dbad6de97e",
+        "site": "ward.asia.wiki.org",
+        "slug": "json-schema",
+        "title": "JSON Schema",
+        "text": "We define the schema for federated wiki pages to the depth that we know it. We use a BNF-like notation to suggest JSON elements. Any ambiguity will be resolved by examining the example. We close with a brief reflection on the successes of the format."
+      },
+      "after": "f9588b75ae06132f",
+      "date": 1603573152833
+    },
+    {
+      "id": "efed4b56d68046d4",
+      "type": "add",
+      "item": {
+        "type": "reference",
+        "id": "efed4b56d68046d4",
+        "site": "ward.asia.wiki.org",
+        "slug": "outpost-thinking",
+        "title": "Outpost Thinking",
+        "text": "We built the federation based on the promiscuous sharing of simple things with the hope that this would lead the community to save indefinitely things worth saving. Within a year we had moved from ruby to node without leaving ruby sites behind. Now, in the federation's ninth year, we consider how this process might be further distributed."
+      },
+      "after": "0a9a10dbad6de97e",
+      "date": 1603573155347
+    },
+    {
+      "id": "c75bdb249c2d20c0",
+      "type": "add",
+      "item": {
+        "type": "reference",
+        "id": "c75bdb249c2d20c0",
+        "site": "plugins.fed.wiki.org",
+        "slug": "about-plugins",
+        "title": "About Plugins",
+        "text": "We explain federated wiki plugins. We define their role interpreting content, recount our experience writing many, describe principles and strategies for future plugins, and offer a step-by-step guide for new plugin authors. We'll also collect pointers here to good plugins when they emerge."
+      },
+      "after": "efed4b56d68046d4",
+      "date": 1603573161478
+    }
+  ]
+}
