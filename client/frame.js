@@ -88,6 +88,22 @@
     })
   }
 
+  function showImporter(pages, options={}) {
+    const result = wiki.newPage({title:"Import from Frame"})
+    // Importer plugin expects to compute dates from journals in
+    // pages. here we hack a default date to allow frame authors to
+    // create pages without journals
+    const date = new Date();
+    for (let p of Object.values(pages)) {
+      if (typeof p.journal === "undefined" || p.journal == null) {
+        p.journal = [{date}]
+      }
+    }
+    result.addParagraph(`Import of ${Object.keys(pages).length} pages.`)
+    result.addItem({type: 'importer', pages})
+    wiki.showResult(result, options)
+  }
+
   const frameListener = function(event) {
     const {data} = event;
     const {action, keepLinup=false, pageKey=null, page=null, pages={}, title=null} = data;
@@ -108,6 +124,10 @@
       } else {
         wiki.doInternalLink(title, $page)
       }
+      break
+    case "importer":
+      options = keepLinup ? {} : {$page}
+      showImporter(pages, options)
       break
     default:
       console.error({where:'frameListener', message: "unknown action", data})
