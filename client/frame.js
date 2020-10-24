@@ -47,7 +47,9 @@
 
   drawFrame = ($item, item, parsed) => {
     $item.append('<iframe></iframe><p></p>')
+    const $page = $item.parents('.page')
     $item.find('iframe').attr({
+      name: $page.data('key'),
       width: '100%',
       style: 'border: none;',
       src: parsed.src,
@@ -88,15 +90,24 @@
 
   const frameListener = function(event) {
     const {data} = event;
-    const {action, page=null, pages={}, title=null} = data;
+    const {action, keepLinup=false, pageKey=null, page=null, pages={}, title=null} = data;
     let options
+
+    const $page = $('.page').filter(function() {
+      return $(this).data('key') === pageKey
+    });
 
     switch (action) {
     case "showResult":
-      wiki.showResult(wiki.newPage(page))
+      options = keepLinup ? {} : {$page}
+      wiki.showResult(wiki.newPage(page), options)
       break
     case "doInternalLink":
-      wiki.doInternalLink(title)
+      if (keepLinup) {
+        wiki.doInternalLink(title)
+      } else {
+        wiki.doInternalLink(title, $page)
+      }
       break
     default:
       console.error({where:'frameListener', message: "unknown action", data})
