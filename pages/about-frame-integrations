@@ -14,7 +14,7 @@
     {
       "type": "code",
       "id": "b7984837dcad6d80",
-      "text": "<button>Click Me</button>\n<script>\nconst pageKey = window.frameElement.name;\n\nfunction itemId() {\n  return Math.abs(Math.random()*1e20|0).toString(16)\n}\n\ndocument.querySelector('button')\n  .addEventListener('click', event => {\n    window.parent.postMessage({\n      action: ...\n      ...\n      pageKey,\n      keepLinup: event.shiftKey\n  });\n});\n</script>"
+      "text": "<button>Click Me</button>\n<script>\nconst pageKey = window.frameElement.name;\n\nfunction itemId() {\n  return Math.abs(Math.random()*1e20|0).toString(16)\n}\n\ndocument.querySelector('button')\n  .addEventListener('click', event => {\n    window.parent.postMessage({\n      action: ...\n      ...\n      pageKey,\n      keepLineup: event.shiftKey\n  });\n});\n</script>"
     },
     {
       "type": "paragraph",
@@ -117,7 +117,7 @@
       "item": {
         "type": "code",
         "id": "b7984837dcad6d80",
-        "text": "<button>Click Me</button>\n<script>\nconst pageKey = window.frameElement.name;\n\nfunction itemId() {\n  return Math.abs(Math.random()*1e20|0).toString(16)\n}\n\ndocument.querySelector('button')\n  .addEventListener('click', event => {\n    window.parent.postMessage({\n      action: ...\n      ...\n      pageKey,\n      keepLinup: event.shiftKey\n  });\n});\n</script>"
+        "text": "<button>Click Me</button>\n<script>\nconst pageKey = window.frameElement.name;\n\nfunction itemId() {\n  return Math.abs(Math.random()*1e20|0).toString(16)\n}\n\ndocument.querySelector('button')\n  .addEventListener('click', event => {\n    window.parent.postMessage({\n      action: ...\n      ...\n      pageKey,\n      keepLineup: event.shiftKey\n  });\n});\n</script>"
       },
       "after": "855bf39f7522b7aa",
       "date": 1603573110726

@@ -106,7 +106,7 @@
 
   const frameListener = function(event) {
     const {data} = event;
-    const {action, keepLinup=false, pageKey=null, page=null, pages={}, title=null} = data;
+    const {action, keepLineup=false, pageKey=null, page=null, pages={}, title=null} = data;
     let options
 
     const $page = $('.page').filter(function() {
@@ -115,18 +115,18 @@
 
     switch (action) {
     case "showResult":
-      options = keepLinup ? {} : {$page}
+      options = keepLineup ? {} : {$page}
       wiki.showResult(wiki.newPage(page), options)
       break
     case "doInternalLink":
-      if (keepLinup) {
+      if (keepLineup) {
         wiki.doInternalLink(title)
       } else {
         wiki.doInternalLink(title, $page)
       }
       break
     case "importer":
-      options = keepLinup ? {} : {$page}
+      options = keepLineup ? {} : {$page}
       showImporter(pages, options)
       break
     default:
