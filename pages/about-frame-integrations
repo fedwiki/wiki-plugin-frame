@@ -49,7 +49,7 @@
     {
       "type": "code",
       "id": "3de1757fd5b8c9bc",
-      "text": "{\n  action:\"import\",\n  pages: {\n    \"hello-world\": {\n      title: \"Hello, World!\", story: [\n      {\n        type: \"paragraph\",\n        text: \"Greetings from frame content!\",\n        id: itemId()\n      }\n    ]},\n    \"greetings-programs\": {\n      title: \"Greetings, Programs!\", story: [\n      {\n        type: \"paragraph\",\n        text: \"We're inside the MCP cone!\",\n        id: itemId()\n      }\n    ]}\n  },\n  ...\n}"
+      "text": "{\n  action:\"importer\",\n  pages: {\n    \"hello-world\": {\n      title: \"Hello, World!\", story: [\n      {\n        type: \"paragraph\",\n        text: \"Greetings from frame content!\",\n        id: itemId()\n      }\n    ]},\n    \"greetings-programs\": {\n      title: \"Greetings, Programs!\", story: [\n      {\n        type: \"paragraph\",\n        text: \"We're inside the MCP cone!\",\n        id: itemId()\n      }\n    ]}\n  },\n  ...\n}"
     },
     {
       "type": "paragraph",
@@ -194,7 +194,7 @@
       "item": {
         "type": "code",
         "id": "3de1757fd5b8c9bc",
-        "text": "{\n  action:\"import\",\n  pages: {\n    \"hello-world\": {\n      title: \"Hello, World!\", story: [\n      {\n        type: \"paragraph\",\n        text: \"Greetings from frame content!\",\n        id: itemId()\n      }\n    ]},\n    \"greetings-programs\": {\n      title: \"Greetings, Programs!\", story: [\n      {\n        type: \"paragraph\",\n        text: \"We're inside the MCP cone!\",\n        id: itemId()\n      }\n    ]}\n  },\n  ...\n}"
+        "text": "{\n  action:\"importer\",\n  pages: {\n    \"hello-world\": {\n      title: \"Hello, World!\", story: [\n      {\n        type: \"paragraph\",\n        text: \"Greetings from frame content!\",\n        id: itemId()\n      }\n    ]},\n    \"greetings-programs\": {\n      title: \"Greetings, Programs!\", story: [\n      {\n        type: \"paragraph\",\n        text: \"We're inside the MCP cone!\",\n        id: itemId()\n      }\n    ]}\n  },\n  ...\n}"
       },
       "after": "5a6b8c587141a3eb",
       "date": 1603573143363
