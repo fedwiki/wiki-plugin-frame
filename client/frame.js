@@ -48,11 +48,16 @@
   drawFrame = ($item, item, parsed) => {
     $item.append('<iframe></iframe><p></p>')
     const $page = $item.parents('.page')
+    const identifiers = new URLSearchParams({
+      pageKey: $page.data("key"),
+      itemId: item.id,
+      slug: $page.attr("id")
+    }).toString()
     $item.find('iframe').attr({
       name: $page.data('key'),
       width: '100%',
       style: 'border: none;',
-      src: parsed.src,
+      src: `${parsed.src}#${identifiers}`,
       sandbox: parsed.sandbox
     })
     if (parsed.height) {
@@ -109,11 +114,29 @@
     const {action, keepLineup=false, pageKey=null, page=null, pages={}, title=null} = data;
     let options
 
-    const $page = $('.page').filter(function() {
-      return $(this).data('key') === pageKey
-    });
+    const $iframe = $("iframe").filter(function() {
+      const $iframe = $(this)
+      return $iframe.get(0).contentWindow === event.source
+    })
+    let $page = null
+    if (pageKey != null) {
+      $page = $('.page').filter(function() {
+        return $(this).data('key') === pageKey
+      })
+    }
+    if ($page == null || $page.length == 0) {
+      $page = $iframe.parents('.page')
+    }
 
     switch (action) {
+    case "sendFrameContext":
+      event.source.postMessage({
+        action: "frameContext",
+        slug: $page.attr("id"),
+        item: $iframe.parents(".item").data("item"),
+        page: $page.data("data")
+      }, "*")
+      break
     case "showResult":
       options = keepLineup ? {} : {$page}
       wiki.showResult(wiki.newPage(page), options)
