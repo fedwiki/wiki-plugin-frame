@@ -9,17 +9,17 @@
     {
       "type": "paragraph",
       "id": "855bf39f7522b7aa",
-      "text": "Here is a general example of how to integrate an external page with wiki. Attach a click handler to an element—probably a button or link—in your page. Within the click handler call postMessage() on the window parent with one of three actions and related payloads shown below."
+      "text": "The following examples attach a click handler to a button in the framed page."
     },
     {
-      "type": "code",
-      "id": "b7984837dcad6d80",
-      "text": "<button>Click Me</button>\n<script>\nconst pageKey = window.frameElement.name;\n\nfunction itemId() {\n  return Math.abs(Math.random()*1e20|0).toString(16)\n}\n\ndocument.querySelector('button')\n  .addEventListener('click', event => {\n    window.parent.postMessage({\n      action: ...\n      ...\n      pageKey,\n      keepLineup: event.shiftKey\n  });\n});\n</script>"
+      "type": "frame",
+      "id": "8c64eddb2eeb0fb9",
+      "text": "//dobbs.github.io/wiki-plugin-frame/assets/integrations.html\nHEIGHT 350"
     },
     {
       "type": "paragraph",
       "id": "3026a5a65dfe6cff",
-      "text": "Note: The pageKey and keepLineup properties enable the button inside the frame to behave the same way wiki readers have come to expect from links and buttons."
+      "text": "Note: The keepLineup property enables the button inside the frame to treat the shift key the same way wiki readers have come to expect from links and buttons."
     },
     {
       "type": "markdown",
@@ -29,7 +29,7 @@
     {
       "type": "code",
       "id": "63f623e58e40ba66",
-      "text": "{\n  action:\"doInternalLink\",\n  title: \"About Frame Plugin\",\n  ...\n}"
+      "text": "document.querySelector(\"button\")\n  .addEventListener(\"click\", event => {\n    window.parent.postMessage({\n      action:\"doInternalLink\",\n      title: \"About Frame Plugin\",\n      keepLineup: event.shiftKey\n    }, \"*\");\n  });"
     },
     {
       "type": "markdown",
@@ -39,7 +39,7 @@
     {
       "type": "code",
       "id": "d5c957014e3db5ea",
-      "text": "{\n  action:\"showResult\",\n  page: {\n    title: \"Hello, World!\", story: [\n    {\n      type: \"paragraph\",\n      text: \"Greetings from frame content!\",\n      id: itemId()\n    }\n  ]},\n  ...\n}"
+      "text": "document.querySelector(\"button\")\n  .addEventListener(\"click\", event => {\n    window.parent.postMessage({\n      action:\"showResult\",\n      page: {\n        title: \"Hello, World!\", story: [\n        {\n          type: \"paragraph\",\n          text: \"Greetings from frame content!\",\n          id: Math.abs(Math.random()*1e20|0)\n                .toString(16)\n        }\n      ]},\n      keepLineup: event.shiftKey\n    }, \"*\");\n  });"
     },
     {
       "type": "markdown",
@@ -49,7 +49,32 @@
     {
       "type": "code",
       "id": "3de1757fd5b8c9bc",
-      "text": "{\n  action:\"import\",\n  pages: {\n    \"hello-world\": {\n      title: \"Hello, World!\", story: [\n      {\n        type: \"paragraph\",\n        text: \"Greetings from frame content!\",\n        id: itemId()\n      }\n    ]},\n    \"greetings-programs\": {\n      title: \"Greetings, Programs!\", story: [\n      {\n        type: \"paragraph\",\n        text: \"We're inside the MCP cone!\",\n        id: itemId()\n      }\n    ]}\n  },\n  ...\n}"
+      "text": "function itemId() {\n  return Math.abs(Math.random()*1e20|0).toString(16)\n}\n\ndocument.querySelector(\"button\")\n  .addEventListener(\"click\", event => {\n    window.parent.postMessage({\n      action:\"import\",\n      pages: {\n        \"hello-world\": {\n          title: \"Hello, World!\", story: [\n          {\n            type: \"paragraph\",\n            text: \"Greetings from frame content!\",\n            id: itemId()\n          }\n        ]},\n        \"greetings-programs\": {\n          title: \"Greetings, Programs!\", story: [\n          {\n            type: \"paragraph\",\n            text: \"We're inside the MCP cone!\",\n            id: itemId()\n          }\n        ]}\n      },\n      keepLineup: event.shiftKey\n    }, \"*\");\n  });"
+    },
+    {
+      "type": "markdown",
+      "id": "94c40a06426258f0",
+      "text": "# Send Frame Context"
+    },
+    {
+      "type": "paragraph",
+      "id": "abf7af50faf8689a",
+      "text": "In some cases, authors construct framed content that needs to know about other items on the hosting page. This requires that the framed content install a message listener to receive the context information."
+    },
+    {
+      "type": "code",
+      "id": "a6dfb82dc84c3ac9",
+      "text": "window.addEventListener(\"message\", event => {\n  const {data} = event\n  if (data.action == \"frameContext\") {\n    const {slug, item, page} = data\n    let code = page.story.find(it => {\n      return it.type == \"code\"\n    })\n    console.log(code.text)\n  }\n})\nwindow.addEventListener(\n  \"DOMContentLoaded\",\n  () => window.parent.postMessage({\n    action: \"sendFrameContext\"\n  }, \"*\")\n)"
+    },
+    {
+      "type": "markdown",
+      "id": "e0a9022389d50bd9",
+      "text": "# URL Includes Identifiers\n"
+    },
+    {
+      "type": "code",
+      "id": "dacc2f7fdffebb9e",
+      "text": "const identifiers = Object.fromEntries(\n  new URLSearchParams(\n    window.location.hash.substr(1)\n  ).entries()\n)\n\nconsole.log({\n  slug: identifiers.slug,\n  pageKey: identifiers.pageKey,\n  itemId: identifiers.itemId\n})"
     },
     {
       "type": "paragraph",
@@ -251,6 +276,267 @@
       },
       "after": "efed4b56d68046d4",
       "date": 1603573161478
+    },
+    {
+      "type": "edit",
+      "id": "63f623e58e40ba66",
+      "item": {
+        "type": "code",
+        "id": "63f623e58e40ba66",
+        "text": "document.querySelector('button')\n  .addEventListener('click', event => {\n    window.parent.postMessage({\n      action:\"doInternalLink\",\n      title: \"About Frame Plugin\",\n      keepLineup: event.shiftKey\n  });\n});"
+      },
+      "date": 1613845168818
+    },
+    {
+      "type": "edit",
+      "id": "d5c957014e3db5ea",
+      "item": {
+        "type": "code",
+        "id": "d5c957014e3db5ea",
+        "text": "function itemId() {\n  return Math.abs(Math.random()*1e20|0).toString(16)\n}\n\ndocument.querySelector('button')\n  .addEventListener('click', event => {\n    window.parent.postMessage({\n      action:\"showResult\",\n      page: {\n        title: \"Hello, World!\", story: [\n        {\n          type: \"paragraph\",\n          text: \"Greetings from frame content!\",\n          id: itemId()\n        }\n      ]},\n      keepLineup: event.shiftKey\n  });\n});"
+      },
+      "date": 1613845241428
+    },
+    {
+      "type": "edit",
+      "id": "d5c957014e3db5ea",
+      "item": {
+        "type": "code",
+        "id": "d5c957014e3db5ea",
+        "text": "document.querySelector('button')\n  .addEventListener('click', event => {\n    window.parent.postMessage({\n      action:\"showResult\",\n      page: {\n        title: \"Hello, World!\", story: [\n        {\n          type: \"paragraph\",\n          text: \"Greetings from frame content!\",\n          id: Math.abs(Math.random()*1e20|0).toString(16)\n        }\n      ]},\n      keepLineup: event.shiftKey\n  });\n});"
+      },
+      "date": 1613845286351
+    },
+    {
+      "type": "edit",
+      "id": "d5c957014e3db5ea",
+      "item": {
+        "type": "code",
+        "id": "d5c957014e3db5ea",
+        "text": "document.querySelector('button')\n  .addEventListener('click', event => {\n    window.parent.postMessage({\n      action:\"showResult\",\n      page: {\n        title: \"Hello, World!\", story: [\n        {\n          type: \"paragraph\",\n          text: \"Greetings from frame content!\",\n          id: Math.abs(Math.random()*1e20|0)\n                .toString(16)\n        }\n      ]},\n      keepLineup: event.shiftKey\n  });\n});"
+      },
+      "date": 1613845349564
+    },
+    {
+      "type": "edit",
+      "id": "3de1757fd5b8c9bc",
+      "item": {
+        "type": "code",
+        "id": "3de1757fd5b8c9bc",
+        "text": "function itemId() {\n  return Math.abs(Math.random()*1e20|0).toString(16)\n}\n\ndocument.querySelector('button')\n  .addEventListener('click', event => {\n    window.parent.postMessage({\n      action:\"import\",\n      pages: {\n        \"hello-world\": {\n          title: \"Hello, World!\", story: [\n          {\n            type: \"paragraph\",\n            text: \"Greetings from frame content!\",\n            id: itemId()\n          }\n        ]},\n        \"greetings-programs\": {\n          title: \"Greetings, Programs!\", story: [\n          {\n            type: \"paragraph\",\n            text: \"We're inside the MCP cone!\",\n            id: itemId()\n          }\n        ]}\n      },\n      keepLineup: event.shiftKey\n  });\n});"
+      },
+      "date": 1613845528378
+    },
+    {
+      "type": "remove",
+      "id": "b7984837dcad6d80",
+      "date": 1613845541407
+    },
+    {
+      "type": "edit",
+      "id": "3026a5a65dfe6cff",
+      "item": {
+        "type": "paragraph",
+        "id": "3026a5a65dfe6cff",
+        "text": "Note: The keepLineup property enables the button inside the frame to treat the shift key the same way wiki readers have come to expect from links and buttons."
+      },
+      "date": 1613845582613
+    },
+    {
+      "type": "edit",
+      "id": "855bf39f7522b7aa",
+      "item": {
+        "type": "paragraph",
+        "id": "855bf39f7522b7aa",
+        "text": "The following examples attach a click handler to a button in the framed page."
+      },
+      "date": 1613845663297
+    },
+    {
+      "type": "add",
+      "id": "abf7af50faf8689a",
+      "item": {
+        "type": "paragraph",
+        "id": "abf7af50faf8689a",
+        "text": "In some cases, authors construct framed content that needs to know about other items on the hosting page."
+      },
+      "after": "3de1757fd5b8c9bc",
+      "date": 1613845794063
+    },
+    {
+      "type": "add",
+      "id": "94c40a06426258f0",
+      "item": {
+        "type": "factory",
+        "id": "94c40a06426258f0",
+        "text": "# Send Frame"
+      },
+      "after": "3de1757fd5b8c9bc",
+      "date": 1613845803053
+    },
+    {
+      "type": "edit",
+      "id": "94c40a06426258f0",
+      "item": {
+        "type": "markdown",
+        "id": "94c40a06426258f0",
+        "text": "# Send Frame Context"
+      },
+      "date": 1613845810733
+    },
+    {
+      "type": "add",
+      "id": "a6dfb82dc84c3ac9",
+      "item": {
+        "type": "factory",
+        "id": "a6dfb82dc84c3ac9",
+        "text": "# code"
+      },
+      "after": "abf7af50faf8689a",
+      "date": 1613845940179
+    },
+    {
+      "type": "edit",
+      "id": "a6dfb82dc84c3ac9",
+      "item": {
+        "type": "code",
+        "id": "a6dfb82dc84c3ac9",
+        "text": "# code goes here"
+      },
+      "date": 1613845947194
+    },
+    {
+      "type": "edit",
+      "id": "a6dfb82dc84c3ac9",
+      "item": {
+        "type": "code",
+        "id": "a6dfb82dc84c3ac9",
+        "text": "window.addEventListener(\"message\", event => {\n  const {data} = event\n  if (data.action == \"frameContext\") {\n    const {slug, item, page} = data\n    let code = page.story.find(it => it.type == \"code\")\n    console.log(code.text)\n  }\n})\nwindow.addEventListener(\n  \"DOMContentLoaded\",\n  () => window.parent.postMessage({\n    action: \"sendFrameContext\"\n  }, \"*\")\n)"
+      },
+      "date": 1613846219584
+    },
+    {
+      "type": "edit",
+      "id": "a6dfb82dc84c3ac9",
+      "item": {
+        "type": "code",
+        "id": "a6dfb82dc84c3ac9",
+        "text": "window.addEventListener(\"message\", event => {\n  const {data} = event\n  if (data.action == \"frameContext\") {\n    const {slug, item, page} = data\n    let code = page.story.find(it => {\n      return it.type == \"code\"\n    })\n    console.log(code.text)\n  }\n})\nwindow.addEventListener(\n  \"DOMContentLoaded\",\n  () => window.parent.postMessage({\n    action: \"sendFrameContext\"\n  }, \"*\")\n)"
+      },
+      "date": 1613846255056
+    },
+    {
+      "type": "edit",
+      "id": "abf7af50faf8689a",
+      "item": {
+        "type": "paragraph",
+        "id": "abf7af50faf8689a",
+        "text": "In some cases, authors construct framed content that needs to know about other items on the hosting page. This requires that the framed content install a message listener to receive the context information."
+      },
+      "date": 1613846649036
+    },
+    {
+      "type": "add",
+      "id": "e0a9022389d50bd9",
+      "item": {
+        "type": "factory",
+        "id": "e0a9022389d50bd9",
+        "text": "# URL Identifiers "
+      },
+      "after": "a6dfb82dc84c3ac9",
+      "date": 1613847011580
+    },
+    {
+      "type": "edit",
+      "id": "e0a9022389d50bd9",
+      "item": {
+        "type": "markdown",
+        "id": "e0a9022389d50bd9",
+        "text": "# URL Includes Identifiers"
+      },
+      "date": 1613847033999
+    },
+    {
+      "id": "8c64eddb2eeb0fb9",
+      "type": "add",
+      "item": {
+        "type": "frame",
+        "id": "8c64eddb2eeb0fb9",
+        "text": "//dobbs.github.io/wiki-plugin-frame/assets/integrations.html\nHEIGHT 350"
+      },
+      "after": "855bf39f7522b7aa",
+      "date": 1613849646493
+    },
+    {
+      "type": "edit",
+      "id": "e0a9022389d50bd9",
+      "item": {
+        "type": "markdown",
+        "id": "e0a9022389d50bd9",
+        "text": "# URL Includes Identifiers\n"
+      },
+      "date": 1613850742255
+    },
+    {
+      "type": "add",
+      "id": "dacc2f7fdffebb9e",
+      "item": {
+        "type": "factory",
+        "id": "dacc2f7fdffebb9e",
+        "text": "code"
+      },
+      "after": "e0a9022389d50bd9",
+      "date": 1613850761022
+    },
+    {
+      "type": "edit",
+      "id": "dacc2f7fdffebb9e",
+      "item": {
+        "type": "code",
+        "id": "dacc2f7fdffebb9e",
+        "text": "# code"
+      },
+      "date": 1613850767439
+    },
+    {
+      "type": "edit",
+      "id": "dacc2f7fdffebb9e",
+      "item": {
+        "type": "code",
+        "id": "dacc2f7fdffebb9e",
+        "text": "const identifiers = Object.fromEntries(\n  new URLSearchParams(\n    window.location.hash.substr(1)\n  ).entries()\n)\n\nconsole.log({\n  slug: identifiers.slug,\n  pageKey: identifiers.pageKey,\n  itemId: identifiers.itemId\n})"
+      },
+      "date": 1613850957366
+    },
+    {
+      "type": "edit",
+      "id": "63f623e58e40ba66",
+      "item": {
+        "type": "code",
+        "id": "63f623e58e40ba66",
+        "text": "document.querySelector(\"button\")\n  .addEventListener(\"click\", event => {\n    window.parent.postMessage({\n      action:\"doInternalLink\",\n      title: \"About Frame Plugin\",\n      keepLineup: event.shiftKey\n    }, \"*\");\n  });"
+      },
+      "date": 1613851444912
+    },
+    {
+      "type": "edit",
+      "id": "d5c957014e3db5ea",
+      "item": {
+        "type": "code",
+        "id": "d5c957014e3db5ea",
+        "text": "document.querySelector(\"button\")\n  .addEventListener(\"click\", event => {\n    window.parent.postMessage({\n      action:\"showResult\",\n      page: {\n        title: \"Hello, World!\", story: [\n        {\n          type: \"paragraph\",\n          text: \"Greetings from frame content!\",\n          id: Math.abs(Math.random()*1e20|0)\n                .toString(16)\n        }\n      ]},\n      keepLineup: event.shiftKey\n    }, \"*\");\n  });"
+      },
+      "date": 1613851495475
+    },
+    {
+      "type": "edit",
+      "id": "3de1757fd5b8c9bc",
+      "item": {
+        "type": "code",
+        "id": "3de1757fd5b8c9bc",
+        "text": "function itemId() {\n  return Math.abs(Math.random()*1e20|0).toString(16)\n}\n\ndocument.querySelector(\"button\")\n  .addEventListener(\"click\", event => {\n    window.parent.postMessage({\n      action:\"import\",\n      pages: {\n        \"hello-world\": {\n          title: \"Hello, World!\", story: [\n          {\n            type: \"paragraph\",\n            text: \"Greetings from frame content!\",\n            id: itemId()\n          }\n        ]},\n        \"greetings-programs\": {\n          title: \"Greetings, Programs!\", story: [\n          {\n            type: \"paragraph\",\n            text: \"We're inside the MCP cone!\",\n            id: itemId()\n          }\n        ]}\n      },\n      keepLineup: event.shiftKey\n    }, \"*\");\n  });"
+      },
+      "date": 1613851532196
     }
   ]
 }
