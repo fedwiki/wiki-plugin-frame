@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Do Internal Link</title>
+    <style>body {display: flex; flex-direction: column;}</style>
+  </head>
+  <body>
+    <button id="doInternalLink">About Frame Plugin</button>
+    <button id="ghostPage">Ghost Page</button>
+    <button id="importPages">Import Pages</button>
+    <button id="sendFrameContext">Send Frame Context</button>
+    <pre id="frameContext">
+    </pre>
+    <button id="showIdentifiers">Show URL Identifiers</button>
+    <pre id="identifiers">
+    </pre>
+    <script>
+     function itemId() {
+       return Math.abs(Math.random()*1e20|0).toString(16)
+     }
+
+     document
+       .querySelector('#doInternalLink')
+       .addEventListener('click', event => {
+         window.parent.postMessage({
+           action:"doInternalLink",
+           title: "About Frame Plugin",
+           keepLineup: event.shiftKey
+         });
+       });
+     document
+       .querySelector('#ghostPage')
+       .addEventListener('click', event => {
+         window.parent.postMessage({
+           action:"showResult",
+           page: {
+             title: "Hello, World!", story: [
+               {
+                 type: "paragraph",
+                 text: "Greetings from frame content!",
+                 id: Math.abs(Math.random()*1e20|0)
+                         .toString(16)
+               }
+           ]},
+           keepLineup: event.shiftKey
+         });
+       });
+     document
+       .querySelector('#importPages')
+       .addEventListener('click', event => {
+         window.parent.postMessage({
+           action:"importer",
+           pages: {
+             "hello-world": {
+               title: "Hello, World!", story: [
+                 {
+                   type: "paragraph",
+                   text: "Greetings from frame content!",
+                   id: itemId()
+                 }
+             ]},
+             "greetings-programs": {
+               title: "Greetings, Programs!", story: [
+                 {
+                   type: "paragraph",
+                   text: "We're inside the MCP cone!",
+                   id: itemId()
+                 }
+             ]}
+           },
+           keepLineup: event.shiftKey
+         });
+       });
+
+     window.addEventListener("message", ({data}) => {
+       console.log("message received", data)
+       if (data.action == "frameContext") {
+         const {slug, item, page} = data;
+         let code = page.story.find(it => {
+           return it.type == "code";
+         })
+         if (code && code.text) {
+           document.querySelector('#frameContext').innerHTML = code.text;
+         }
+       }
+     });
+     document
+       .querySelector('#sendFrameContext')
+       .addEventListener('click', event => {
+         console.log("sendFrameContext clicked!");
+         window.parent.postMessage({
+           action:"sendFrameContext"
+         }, "*");
+       });
+
+     document
+       .querySelector('#showIdentifiers')
+       .addEventListener('click', event => {
+         const identifiers = Object.fromEntries(new URLSearchParams(window.location.hash.substr(1)).entries());
+         document.querySelector('#identifiers').innerHTML = JSON.stringify(identifiers, null, 2);
+       })
+    </script>
+  </body>
+</html>
