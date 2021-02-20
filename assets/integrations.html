@@ -27,7 +27,7 @@
            action:"doInternalLink",
            title: "About Frame Plugin",
            keepLineup: event.shiftKey
-         });
+         }, "*");
        });
      document
        .querySelector('#ghostPage')
@@ -44,7 +44,7 @@
                }
            ]},
            keepLineup: event.shiftKey
-         });
+         }, "*");
        });
      document
        .querySelector('#importPages')
@@ -70,7 +70,7 @@
              ]}
            },
            keepLineup: event.shiftKey
-         });
+         }, "*");
        });
 
      window.addEventListener("message", ({data}) => {
