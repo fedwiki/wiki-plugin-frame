@@ -51,6 +51,7 @@
     const identifiers = new URLSearchParams({
       pageKey: $page.data("key"),
       itemId: item.id,
+      site: $page.data("site") || window.location.host,
       slug: $page.attr("id")
     }).toString()
     $item.find('iframe').attr({
@@ -132,6 +133,7 @@
     case "sendFrameContext":
       event.source.postMessage({
         action: "frameContext",
+        site: $page.data("site") || window.location.host,
         slug: $page.attr("id"),
         item: $iframe.parents(".item").data("item"),
         page: $page.data("data")
