@@ -9,7 +9,7 @@
     {
       "type": "paragraph",
       "id": "855bf39f7522b7aa",
-      "text": "The following examples attach a click handler to a button in the framed page."
+      "text": "Each button in this example demonstrates a different integration. Example code behind the buttons are provided below."
     },
     {
       "type": "frame",
@@ -49,7 +49,7 @@
     {
       "type": "code",
       "id": "3de1757fd5b8c9bc",
-      "text": "function itemId() {\n  return Math.abs(Math.random()*1e20|0).toString(16)\n}\n\ndocument.querySelector(\"button\")\n  .addEventListener(\"click\", event => {\n    window.parent.postMessage({\n      action:\"import\",\n      pages: {\n        \"hello-world\": {\n          title: \"Hello, World!\", story: [\n          {\n            type: \"paragraph\",\n            text: \"Greetings from frame content!\",\n            id: itemId()\n          }\n        ]},\n        \"greetings-programs\": {\n          title: \"Greetings, Programs!\", story: [\n          {\n            type: \"paragraph\",\n            text: \"We're inside the MCP cone!\",\n            id: itemId()\n          }\n        ]}\n      },\n      keepLineup: event.shiftKey\n    }, \"*\");\n  });"
+      "text": "function itemId() {\n  return Math.abs(Math.random()*1e20|0).toString(16)\n}\n\ndocument.querySelector(\"button\")\n  .addEventListener(\"click\", event => {\n    window.parent.postMessage({\n      action:\"importer\",\n      pages: {\n        \"hello-world\": {\n          title: \"Hello, World!\", story: [\n          {\n            type: \"paragraph\",\n            text: \"Greetings from frame content!\",\n            id: itemId()\n          }\n        ]},\n        \"greetings-programs\": {\n          title: \"Greetings, Programs!\", story: [\n          {\n            type: \"paragraph\",\n            text: \"We're inside the MCP cone!\",\n            id: itemId()\n          }\n        ]}\n      },\n      keepLineup: event.shiftKey\n    }, \"*\");\n  });"
     },
     {
       "type": "markdown",
@@ -64,7 +64,7 @@
     {
       "type": "code",
       "id": "a6dfb82dc84c3ac9",
-      "text": "window.addEventListener(\"message\", event => {\n  const {data} = event\n  if (data.action == \"frameContext\") {\n    const {site, slug, item, page} = data\n    let code = page.story.find(it => {\n      return it.type == \"code\"\n    })\n    console.log(code.text)\n  }\n})\nwindow.addEventListener(\n  \"DOMContentLoaded\",\n  () => window.parent.postMessage({\n    action: \"sendFrameContext\"\n  }, \"*\")\n)"
+      "text": "window.addEventListener(\"message\", handleFrameContext)\nfunction handleFrameContext ({data}) {\n  console.log(\"message received\", data)\n  if (data.action == \"frameContext\") {\n    window.removeEventListener(\n      \"message\", handleFrameContext)\n    const {site, slug, item, \n      page: {title, story}} = data\n    const items = story.reduce((acc, {type}) => {\n      acc[type] = (acc[type]||0)+1\n      return acc\n    }, {})\n    console.log({title, items})\n  }\n}\n\nwindow.addEventListener(\n  \"DOMContentLoaded\",\n  () => window.parent.postMessage({\n    action: \"sendFrameContext\"\n  }, \"*\")\n)"
     },
     {
       "type": "markdown",
@@ -537,6 +537,76 @@
         "text": "function itemId() {\n  return Math.abs(Math.random()*1e20|0).toString(16)\n}\n\ndocument.querySelector(\"button\")\n  .addEventListener(\"click\", event => {\n    window.parent.postMessage({\n      action:\"import\",\n      pages: {\n        \"hello-world\": {\n          title: \"Hello, World!\", story: [\n          {\n            type: \"paragraph\",\n            text: \"Greetings from frame content!\",\n            id: itemId()\n          }\n        ]},\n        \"greetings-programs\": {\n          title: \"Greetings, Programs!\", story: [\n          {\n            type: \"paragraph\",\n            text: \"We're inside the MCP cone!\",\n            id: itemId()\n          }\n        ]}\n      },\n      keepLineup: event.shiftKey\n    }, \"*\");\n  });"
       },
       "date": 1613851532196
+    },
+    {
+      "type": "edit",
+      "id": "a6dfb82dc84c3ac9",
+      "item": {
+        "type": "code",
+        "id": "a6dfb82dc84c3ac9",
+        "text": "window.addEventListener(\"message\", event => {\n  const {data} = event\n  if (data.action == \"frameContext\") {\n    const {site, slug, item, page} = data\n    let code = page.story.find(it => {\n      return it.type == \"code\"\n    })\n    console.log(code.text)\n  }\n})\nfunction handleFrameContext ({data}) {\n  if (data.action == \"frameContext\") {\n    window.removeEventListener(handleFrameContext)\n  }\n    const {site, slug, item, page} = data\n}\n\n\nwindow.addEventListener(\n  \"DOMContentLoaded\",\n  () => window.parent.postMessage({\n    action: \"sendFrameContext\"\n  }, \"*\")\n)"
+      },
+      "date": 1622315020829
+    },
+    {
+      "type": "edit",
+      "id": "a6dfb82dc84c3ac9",
+      "item": {
+        "type": "code",
+        "id": "a6dfb82dc84c3ac9",
+        "text": "window.addEventListener(\"message\", event => {\n  const {data} = event\n})\nfunction handleFrameContext ({data}) {\n  if (data.action == \"frameContext\") {\n    window.removeEventListener(handleFrameContext)\n      const {site, slug, item, page} = data\n      console.log({\n        title: page.title,\n        items: page.story.map(it => it.type)\n      })\n    }\n  }\n    const {site, slug, item, page} = data\n}\n\n\nwindow.addEventListener(\n  \"DOMContentLoaded\",\n  () => window.parent.postMessage({\n    action: \"sendFrameContext\"\n  }, \"*\")\n)"
+      },
+      "date": 1622315170618
+    },
+    {
+      "type": "edit",
+      "id": "a6dfb82dc84c3ac9",
+      "item": {
+        "type": "code",
+        "id": "a6dfb82dc84c3ac9",
+        "text": "window.addEventListener(\"message\", handleFrameContext)\nfunction handleFrameContext ({data}) {\n  if (data.action == \"frameContext\") {\n    window.removeEventListener(handleFrameContext)\n    const {site, slug, item, page} = data\n    console.log({\n      title: page.title,\n      items: page.story.map(it => it.type)\n    })\n  }\n}\n\nwindow.addEventListener(\n  \"DOMContentLoaded\",\n  () => window.parent.postMessage({\n    action: \"sendFrameContext\"\n  }, \"*\")\n)"
+      },
+      "date": 1622315267184
+    },
+    {
+      "type": "edit",
+      "id": "8c64eddb2eeb0fb9",
+      "item": {
+        "type": "frame",
+        "id": "8c64eddb2eeb0fb9",
+        "text": "//dev.localhost:3000/assets/integrations.html\nHEIGHT 350"
+      },
+      "date": 1622315551608
+    },
+    {
+      "type": "edit",
+      "id": "a6dfb82dc84c3ac9",
+      "item": {
+        "type": "code",
+        "id": "a6dfb82dc84c3ac9",
+        "text": "window.addEventListener(\"message\", handleFrameContext)\nfunction handleFrameContext ({data}) {\n  console.log(\"message received\", data)\n  if (data.action == \"frameContext\") {\n    window.removeEventListener(\n      \"message\", handleFrameContext)\n    const {site, slug, item, \n      page: {title, story}} = data\n    const items = story.reduce((acc, {type}) => {\n      acc[type] = (acc[type]||0)+1\n      return acc\n    }, {})\n    console.log({title, items})\n  }\n}\n\nwindow.addEventListener(\n  \"DOMContentLoaded\",\n  () => window.parent.postMessage({\n    action: \"sendFrameContext\"\n  }, \"*\")\n)"
+      },
+      "date": 1622316072296
+    },
+    {
+      "type": "edit",
+      "id": "855bf39f7522b7aa",
+      "item": {
+        "type": "paragraph",
+        "id": "855bf39f7522b7aa",
+        "text": "Each button in this example demonstrates a different integration. Example code behind the buttons are provided below."
+      },
+      "date": 1622316224659
+    },
+    {
+      "type": "edit",
+      "id": "8c64eddb2eeb0fb9",
+      "item": {
+        "type": "frame",
+        "id": "8c64eddb2eeb0fb9",
+        "text": "//dev.localhost:3000/assets/integrations.html\nHEIGHT 375"
+      },
+      "date": 1622316262595
     }
   ]
 }

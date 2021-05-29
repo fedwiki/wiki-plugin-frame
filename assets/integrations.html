@@ -73,18 +73,19 @@
          }, "*");
        });
 
-     window.addEventListener("message", ({data}) => {
+     window.addEventListener("message", handleFrameContext)
+     function handleFrameContext ({data}) {
        console.log("message received", data)
        if (data.action == "frameContext") {
-         const {slug, item, page} = data;
-         let code = page.story.find(it => {
-           return it.type == "code";
-         })
-         if (code && code.text) {
-           document.querySelector('#frameContext').innerHTML = code.text;
-         }
+         window.removeEventListener("message", handleFrameContext)
+         const {site, slug, item, page: {title, story}} = data
+         const items = story.reduce((acc, {type}) => (acc[type] = (acc[type]||0)+1, acc), {})
+         console.log({title, items})
+         if (items)
+           document.querySelector('#frameContext')
+             .innerHTML = JSON.stringify(items, null, 2);
        }
-     });
+     }
      document
        .querySelector('#sendFrameContext')
        .addEventListener('click', event => {
