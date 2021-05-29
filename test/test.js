@@ -44,6 +44,13 @@
         expect(result)
           .not.to.have.property('error');
       });
+      it('accepts localhost', () => {
+        const result = frame.parse('//localhost');
+        expect(result)
+          .to.have.property('src', '//localhost');
+        expect(result)
+          .not.to.have.property('error');
+      })
       it('rejects missing domain', () => {
         const result = frame.parse('/some/path.html');
         expect(result)
