@@ -1,8 +1,6 @@
 (function() {
-  var bind, emit, parse, expand, wiki, location,
-      validateDomain, drawFrame, drawError
 
-  expand = text => {
+  function expand(text) {
     return wiki.resolveLinks(
       text,
       (intext) => intext
@@ -13,7 +11,7 @@
     )
   }
 
-  validateDomain = url => {
+  function validateDomain(url) {
     const re = /^(?:https?:)?\/\/((([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,}|localhost)(:[0-9]{2,})?)(\/|$)/i
     const matchData = url.match(re)
     const src = url
@@ -26,7 +24,7 @@
     }
   }
 
-  parse = text => {
+  function parse(text) {
     const [src, ...rest] = text.split("\n")
     var result = validateDomain(src)
     const re = /^HEIGHT (\w+)/
@@ -45,7 +43,7 @@
     return result
   }
 
-  drawFrame = ($item, item, parsed) => {
+  function drawFrame($item, item, parsed) {
     $item.append('<iframe></iframe><p></p>')
     const $page = $item.parents('.page')
     const identifiers = new URLSearchParams({
@@ -68,13 +66,13 @@
     $item.find('p').html(expand(parsed.caption))
   }
 
-  drawError = ($item, item, parsed) => {
+  function drawError($item, item, parsed) {
     $item.append(`
         <pre class="error">${parsed.error}</pre>
         <pre>${item.text}</pre>`)
   }
 
-  emit = ($item, item) => {
+  function emit($item, item) {
     const parsed = parse(item.text)
     $item.css({
       'background-color': '#eee',
@@ -88,7 +86,7 @@
     return $item
   }
 
-  bind = function($item, item) {
+  function bind($item, item) {
     return $item.dblclick(() => {
       return wiki.textEditor($item, item)
     })
