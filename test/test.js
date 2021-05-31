@@ -60,10 +60,29 @@
       });
     });
 
+    describe('SOURCE', () => {
+      it('is recognized', () => {
+        const result = frame.parse("//example.com\nSOURCE radar")
+        expect(result).to.have.property('sources');
+        expect(result)
+          .not.to.have.property('error');
+      });
+      it('accepts many sources', () => {
+        const result = frame.parse("//example.com\nSOURCE radar\nSOURCE marker")
+        expect(result).to.have.property('sources');
+        expect(result.sources).to.be.a(Set)
+        expect(result.sources.has('radar')).to.be.ok()
+        expect(result.sources.has('marker')).to.be.ok()
+        expect(result)
+          .not.to.have.property('error');
+      });
+    })
+
     const result = frame.parse(`https://example.com/something
 caption to offer context to The Reader
 HEIGHT 200
-offer many lines to The Author`);
+offer many lines to The Author
+SOURCE radar`);
 
     it('uses first line for IFRAME SRC', () => {
       expect(result.src).to.be('https://example.com/something');
@@ -73,6 +92,7 @@ offer many lines to The Author`);
       expect(result.caption).to.contain('The Reader');
       expect(result.caption).to.contain('The Author');
       expect(result.caption).not.to.contain('HEIGHT');
+      expect(result.caption).not.to.contain('SOURCE');
     });
 
     it('recognizes HEIGHT', () => {

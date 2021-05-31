@@ -27,12 +27,15 @@
   function parse(text) {
     const [src, ...rest] = text.split("\n")
     let result = validateDomain(src)
-    const caption = []
     let height, matchData
+    const caption = []
+    const sources = new Set()
     for (let line of rest) {
       if (matchData = line.match(/^HEIGHT (\w+)/)) {
         height = matchData[1]
         continue
+      } else if (matchData = line.match(/^SOURCE (\w+)/)) {
+        sources.add(matchData[1])
       } else {
         caption.push(line)
       }
@@ -40,6 +43,7 @@
     result.sandbox = 'allow-scripts'
     result.caption = caption.join("\n")
     result.height = height
+    result.sources = sources
     return result
   }
 
