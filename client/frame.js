@@ -67,7 +67,7 @@
   }
 
   function drawError($item, item, parsed) {
-    $item.append(`
+    return $item.append(`
         <pre class="error">${parsed.error}</pre>
         <pre>${item.text}</pre>`)
   }
@@ -108,7 +108,7 @@
     wiki.showResult(result, options)
   }
 
-  const frameListener = function(event) {
+  function frameListener(event) {
     const {data} = event;
     const {action, keepLineup=false, pageKey=null, page=null, pages={}, title=null} = data;
     let options
@@ -159,7 +159,6 @@
 
   if (typeof window !== "undefined" && window !== null) {
     wiki = window.wiki
-    location = window.location
     window.plugins.frame = {emit, bind}
     if (typeof window.frameListener !== "undefined" || window.frameListener == null) {
       window.frameListener = frameListener
@@ -169,7 +168,6 @@
 
   if (typeof module !== "undefined" && module !== null) {
     wiki = {resolveLinks: (text, escape) => escape(text)}
-    location = {hostname: 'example.com'}
     module.exports = {expand, parse}
   }
 
