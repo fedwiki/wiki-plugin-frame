@@ -112,6 +112,12 @@
     wiki.showResult(result, options)
   }
 
+  function publishSourceData($item, name, sourceData) {
+    const el = $item.get(0)
+    el[`${name}Data`] = () => sourceData
+    el.classList.add(`${name}-source`)
+  }
+
   function frameListener(event) {
     const {data} = event;
     const {action, keepLineup=false, pageKey=null, page=null, pages={}, title=null} = data;
@@ -156,6 +162,10 @@
       options = keepLineup ? {} : {$page}
       showImporter(pages, options)
       break
+    case "publishSourceData":
+      const {name, sourceData} = data
+      publishSourceData($iframe.parents(".item"), name, sourceData)
+      break
     default:
       console.error({where:'frameListener', message: "unknown action", data})
     }
@@ -172,7 +182,7 @@
 
   if (typeof module !== "undefined" && module !== null) {
     wiki = {resolveLinks: (text, escape) => escape(text)}
-    module.exports = {expand, parse}
+    module.exports = {expand, parse, publishSourceData}
   }
 
 }).call(this)
