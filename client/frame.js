@@ -118,6 +118,10 @@
     el.classList.add(`${name}-source`)
   }
 
+  function triggerThumb($item, thumb) {
+    $item.trigger("thumb", thumb)
+  }
+
   function frameListener(event) {
     const {data} = event;
     const {action, keepLineup=false, pageKey=null, page=null, pages={}, title=null} = data;
@@ -127,6 +131,7 @@
       const $iframe = $(this)
       return $iframe.get(0).contentWindow === event.source
     })
+    const $item = $iframe.parents(".item")
     let $page = null
     if (pageKey != null) {
       $page = $('.page').filter(function() {
@@ -143,7 +148,7 @@
         action: "frameContext",
         site: $page.data("site") || window.location.host,
         slug: $page.attr("id"),
-        item: $iframe.parents(".item").data("item"),
+        item: $item.data("item"),
         page: $page.data("data")
       }, "*")
       break
@@ -164,7 +169,11 @@
       break
     case "publishSourceData":
       const {name, sourceData} = data
-      publishSourceData($iframe.parents(".item"), name, sourceData)
+      publishSourceData($item, name, sourceData)
+      break
+    case "triggerThumb":
+      const {thumb} = data
+      triggerThumb($item, thumb)
       break
     default:
       console.error({where:'frameListener', message: "unknown action", data})
@@ -182,7 +191,7 @@
 
   if (typeof module !== "undefined" && module !== null) {
     wiki = {resolveLinks: (text, escape) => escape(text)}
-    module.exports = {expand, parse, publishSourceData}
+    module.exports = {expand, parse, publishSourceData, triggerThumb}
   }
 
 }).call(this)

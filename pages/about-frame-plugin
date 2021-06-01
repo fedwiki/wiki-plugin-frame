@@ -23,6 +23,11 @@
     },
     {
       "type": "markdown",
+      "id": "c70196335a0d90a1",
+      "text": "Say **SOURCE** to offer data to other plugins.\nSee [[About Frame Source]]"
+    },
+    {
+      "type": "markdown",
       "id": "2d363e7e23cada68",
       "text": "Everything else you type will be used as the caption.  Captions also correctly expand wiki links.\n"
     },
@@ -163,6 +168,37 @@
       },
       "after": "42994bef7efbc924",
       "date": 1603566950759
+    },
+    {
+      "type": "add",
+      "id": "c70196335a0d90a1",
+      "item": {
+        "type": "markdown",
+        "id": "c70196335a0d90a1",
+        "text": "Say **SOURCE** to offer data to other plugins. See [[About Frame Source]]"
+      },
+      "after": "3cf05c0ec1742735",
+      "date": 1622566138988
+    },
+    {
+      "type": "edit",
+      "id": "c70196335a0d90a1",
+      "item": {
+        "type": "markdown",
+        "id": "c70196335a0d90a1",
+        "text": "Say **SOURCE** to offer data to other plugins.\n\nSee [[About Frame Source]]"
+      },
+      "date": 1622566150325
+    },
+    {
+      "type": "edit",
+      "id": "c70196335a0d90a1",
+      "item": {
+        "type": "markdown",
+        "id": "c70196335a0d90a1",
+        "text": "Say **SOURCE** to offer data to other plugins.\nSee [[About Frame Source]]"
+      },
+      "date": 1622566155175
     }
   ]
 }

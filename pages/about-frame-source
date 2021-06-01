@@ -1,0 +1,488 @@
+{
+  "title": "About Frame Source",
+  "story": [
+    {
+      "type": "paragraph",
+      "id": "324b86b21d535df0",
+      "text": "The frame plugin can broker communications between frame items."
+    },
+    {
+      "type": "paragraph",
+      "id": "600c3b6856313372",
+      "text": "In this example a frame declares itself a SOURCE for radar data. Open the radar chart and hover over rows in the table."
+    },
+    {
+      "type": "paragraph",
+      "id": "1bfac6aad85c1987",
+      "text": "[[Discover both Dimensions and Limits]]"
+    },
+    {
+      "type": "frame",
+      "id": "4a012433cd8c0da2",
+      "text": "//dobbs.github.io/wiki-plugin-frame/assets/radar-source.html\nHEIGHT 175\nSOURCE radar"
+    },
+    {
+      "type": "paragraph",
+      "id": "5b2e99af49035b38",
+      "text": "Notice how the frame markup declares SOURCE radar."
+    },
+    {
+      "type": "code",
+      "id": "1ae926f5e3057b1f",
+      "text": "//dobbs.github.io/wiki-plugin-frame/assets/radar-source.html\nHEIGHT 175\nSOURCE radar"
+    },
+    {
+      "type": "paragraph",
+      "id": "423e340084c72f7c",
+      "text": "The source code used by this example is displayed in another frame below. We draw your attention to two invocations of postMessage()."
+    },
+    {
+      "type": "paragraph",
+      "id": "454ca8d3d0da2142",
+      "text": "publishSourceData tells the frame plugin to participate in the conventional discovery for other wiki plugins."
+    },
+    {
+      "type": "paragraph",
+      "id": "c4c92a908cdcb832",
+      "text": "triggerThumb tells the frame plugin to notify other plugins of the reader's indicated interest in scrubbing through the provided data."
+    },
+    {
+      "type": "frame",
+      "id": "e89693d5670791d3",
+      "text": "//dobbs.github.io/wiki-plugin-frame/assets/radar-source.js\nHEIGHT 700"
+    }
+  ],
+  "journal": [
+    {
+      "type": "create",
+      "item": {
+        "title": "About Frame Source",
+        "story": []
+      },
+      "date": 1622317007682
+    },
+    {
+      "item": {
+        "type": "factory",
+        "id": "324b86b21d535df0"
+      },
+      "id": "324b86b21d535df0",
+      "type": "add",
+      "date": 1622318231473
+    },
+    {
+      "type": "edit",
+      "id": "324b86b21d535df0",
+      "item": {
+        "type": "paragraph",
+        "id": "324b86b21d535df0",
+        "text": "The frame plugin can broker communications between frame items."
+      },
+      "date": 1622320502666
+    },
+    {
+      "type": "add",
+      "id": "600c3b6856313372",
+      "item": {
+        "type": "paragraph",
+        "id": "600c3b6856313372",
+        "text": "In this example a frame declares itself a SOURCE for radar data."
+      },
+      "after": "324b86b21d535df0",
+      "date": 1622320518874
+    },
+    {
+      "item": {
+        "type": "factory",
+        "id": "1ae926f5e3057b1f"
+      },
+      "id": "1ae926f5e3057b1f",
+      "type": "add",
+      "after": "600c3b6856313372",
+      "date": 1622320524775
+    },
+    {
+      "type": "edit",
+      "id": "1ae926f5e3057b1f",
+      "item": {
+        "type": "code",
+        "id": "1ae926f5e3057b1f",
+        "text": "https://dobbs.github.io/wiki-plugin-frame/assets/radar-source.html\nHEIGHT 100\nSOURCE radar"
+      },
+      "date": 1622320607506
+    },
+    {
+      "item": {
+        "type": "factory",
+        "id": "4a012433cd8c0da2"
+      },
+      "id": "4a012433cd8c0da2",
+      "type": "add",
+      "after": "1ae926f5e3057b1f",
+      "date": 1622320609591
+    },
+    {
+      "type": "edit",
+      "id": "4a012433cd8c0da2",
+      "item": {
+        "type": "frame",
+        "id": "4a012433cd8c0da2",
+        "text": "https://dobbs.github.io/wiki-plugin-frame/assets/radar-source.html\nHEIGHT 100\nSOURCE radar"
+      },
+      "date": 1622320618549
+    },
+    {
+      "type": "edit",
+      "id": "4a012433cd8c0da2",
+      "item": {
+        "type": "frame",
+        "id": "4a012433cd8c0da2",
+        "text": "https://dev.localhost:3000/assets/radar-source.html\nHEIGHT 100\nSOURCE radar"
+      },
+      "date": 1622323788967
+    },
+    {
+      "type": "edit",
+      "id": "4a012433cd8c0da2",
+      "item": {
+        "type": "frame",
+        "id": "4a012433cd8c0da2",
+        "text": "http://dev.localhost:3000/assets/radar-source.html\nHEIGHT 100\nSOURCE radar"
+      },
+      "date": 1622323801084
+    },
+    {
+      "type": "edit",
+      "id": "4a012433cd8c0da2",
+      "item": {
+        "type": "frame",
+        "id": "4a012433cd8c0da2",
+        "text": "http://localhost:3000/assets/radar-source.html\nHEIGHT 100\nSOURCE radar"
+      },
+      "date": 1622324563669
+    },
+    {
+      "type": "edit",
+      "id": "600c3b6856313372",
+      "item": {
+        "type": "paragraph",
+        "id": "600c3b6856313372",
+        "text": "In this example a frame declares itself a SOURCE for radar data. Open the radar chart and hover over rows in the table."
+      },
+      "date": 1622559883420
+    },
+    {
+      "type": "add",
+      "id": "1bfac6aad85c1987",
+      "item": {
+        "type": "paragraph",
+        "id": "1bfac6aad85c1987",
+        "text": "[[Discover both Dimensions and Limits]]"
+      },
+      "after": "600c3b6856313372",
+      "date": 1622559907520
+    },
+    {
+      "id": "4a012433cd8c0da2",
+      "type": "move",
+      "order": [
+        "324b86b21d535df0",
+        "600c3b6856313372",
+        "1bfac6aad85c1987",
+        "4a012433cd8c0da2",
+        "1ae926f5e3057b1f"
+      ],
+      "date": 1622559955363
+    },
+    {
+      "item": {
+        "type": "factory",
+        "id": "5b2e99af49035b38"
+      },
+      "id": "5b2e99af49035b38",
+      "type": "add",
+      "after": "1ae926f5e3057b1f",
+      "date": 1622559984438
+    },
+    {
+      "id": "5b2e99af49035b38",
+      "type": "move",
+      "order": [
+        "324b86b21d535df0",
+        "600c3b6856313372",
+        "1bfac6aad85c1987",
+        "4a012433cd8c0da2",
+        "5b2e99af49035b38",
+        "1ae926f5e3057b1f"
+      ],
+      "date": 1622559987682
+    },
+    {
+      "type": "edit",
+      "id": "5b2e99af49035b38",
+      "item": {
+        "type": "paragraph",
+        "id": "5b2e99af49035b38",
+        "text": "Notice how the frame markup declares SOURCE radar."
+      },
+      "date": 1622560059062
+    },
+    {
+      "type": "edit",
+      "id": "4a012433cd8c0da2",
+      "item": {
+        "type": "frame",
+        "id": "4a012433cd8c0da2",
+        "text": "http://localhost:3000/assets/radar-source.html\nSOURCE radar"
+      },
+      "date": 1622560305186
+    },
+    {
+      "type": "edit",
+      "id": "4a012433cd8c0da2",
+      "item": {
+        "type": "frame",
+        "id": "4a012433cd8c0da2",
+        "text": "http://localhost:3000/assets/radar-source.html\nHEIGHT 305\nSOURCE radar"
+      },
+      "date": 1622560325960
+    },
+    {
+      "type": "edit",
+      "id": "4a012433cd8c0da2",
+      "item": {
+        "type": "frame",
+        "id": "4a012433cd8c0da2",
+        "text": "http://localhost:3000/assets/radar-source.html\nHEIGHT 200\nSOURCE radar"
+      },
+      "date": 1622560331697
+    },
+    {
+      "type": "edit",
+      "id": "4a012433cd8c0da2",
+      "item": {
+        "type": "frame",
+        "id": "4a012433cd8c0da2",
+        "text": "http://localhost:3000/assets/radar-source.html\nHEIGHT 150\nSOURCE radar"
+      },
+      "date": 1622560337610
+    },
+    {
+      "type": "edit",
+      "id": "4a012433cd8c0da2",
+      "item": {
+        "type": "frame",
+        "id": "4a012433cd8c0da2",
+        "text": "http://localhost:3000/assets/radar-source.html\nHEIGHT 175\nSOURCE radar"
+      },
+      "date": 1622560344676
+    },
+    {
+      "type": "edit",
+      "id": "1ae926f5e3057b1f",
+      "item": {
+        "type": "code",
+        "id": "1ae926f5e3057b1f",
+        "text": "https://dobbs.github.io/wiki-plugin-frame/assets/radar-source.html\nHEIGHT 175\nSOURCE radar"
+      },
+      "date": 1622560380781
+    },
+    {
+      "item": {
+        "type": "factory",
+        "id": "e89693d5670791d3"
+      },
+      "id": "e89693d5670791d3",
+      "type": "add",
+      "after": "1ae926f5e3057b1f",
+      "date": 1622560406161
+    },
+    {
+      "type": "edit",
+      "id": "e89693d5670791d3",
+      "item": {
+        "type": "frame",
+        "id": "e89693d5670791d3",
+        "text": "https://github.com"
+      },
+      "date": 1622560420434
+    },
+    {
+      "type": "edit",
+      "id": "e89693d5670791d3",
+      "item": {
+        "type": "frame",
+        "id": "e89693d5670791d3",
+        "text": "https://raw.githubusercontent.com/dobbs/wiki-plugin-frame/main/assets/radar-source.js\nHEIGHT 600"
+      },
+      "date": 1622560627084
+    },
+    {
+      "type": "edit",
+      "id": "e89693d5670791d3",
+      "item": {
+        "type": "frame",
+        "id": "e89693d5670791d3",
+        "text": "https://dobbs.github.io/wiki-plugin-frame/assets/radar-source.js\nHEIGHT 600"
+      },
+      "date": 1622560831485
+    },
+    {
+      "item": {
+        "type": "factory",
+        "id": "423e340084c72f7c"
+      },
+      "id": "423e340084c72f7c",
+      "type": "add",
+      "after": "e89693d5670791d3",
+      "date": 1622560849271
+    },
+    {
+      "id": "423e340084c72f7c",
+      "type": "move",
+      "order": [
+        "324b86b21d535df0",
+        "600c3b6856313372",
+        "1bfac6aad85c1987",
+        "4a012433cd8c0da2",
+        "5b2e99af49035b38",
+        "1ae926f5e3057b1f",
+        "423e340084c72f7c",
+        "e89693d5670791d3"
+      ],
+      "date": 1622560853353
+    },
+    {
+      "type": "edit",
+      "id": "423e340084c72f7c",
+      "item": {
+        "type": "paragraph",
+        "id": "423e340084c72f7c",
+        "text": "The source code used by this example is displayed in another frame below. We draw your attention to two invocations of postMessage()."
+      },
+      "date": 1622560969970
+    },
+    {
+      "type": "add",
+      "id": "454ca8d3d0da2142",
+      "item": {
+        "type": "paragraph",
+        "id": "454ca8d3d0da2142",
+        "text": "publishSourceData tells the frame plugin to participate in the conventional discovery for other wiki plugins."
+      },
+      "after": "423e340084c72f7c",
+      "date": 1622561181593
+    },
+    {
+      "type": "add",
+      "id": "c4c92a908cdcb832",
+      "item": {
+        "type": "paragraph",
+        "id": "c4c92a908cdcb832",
+        "text": "triggerThumb tells the frame plugin to notify other plugins of the reader's indicated interest in scrubbing through the provided data."
+      },
+      "after": "454ca8d3d0da2142",
+      "date": 1622561288199
+    },
+    {
+      "type": "edit",
+      "id": "e89693d5670791d3",
+      "item": {
+        "type": "frame",
+        "id": "e89693d5670791d3",
+        "text": "https://dobbs.github.io/wiki-plugin-frame/assets/radar-source.js\nHEIGHT 700"
+      },
+      "date": 1622566685429
+    },
+    {
+      "type": "edit",
+      "id": "e89693d5670791d3",
+      "item": {
+        "type": "frame",
+        "id": "e89693d5670791d3",
+        "text": "https://dobbs.github.io/wiki-plugin-frame/assets/radar-source.js\nHEIGHT 725"
+      },
+      "date": 1622566695628
+    },
+    {
+      "type": "edit",
+      "id": "4a012433cd8c0da2",
+      "item": {
+        "type": "frame",
+        "id": "4a012433cd8c0da2",
+        "text": "//dobbs.github.io/wiki-frame-plugin/assets/radar-source.html\nHEIGHT 175\nSOURCE radar"
+      },
+      "date": 1622575758360
+    },
+    {
+      "type": "edit",
+      "id": "4a012433cd8c0da2",
+      "item": {
+        "type": "frame",
+        "id": "4a012433cd8c0da2",
+        "text": "//dobbs.github.io/wiki-plugin-frame/assets/radar-source.html\nHEIGHT 175\nSOURCE radar"
+      },
+      "date": 1622575818039
+    },
+    {
+      "type": "edit",
+      "id": "4a012433cd8c0da2",
+      "item": {
+        "type": "frame",
+        "id": "4a012433cd8c0da2",
+        "text": "//dobbs.github.io/wiki-plugin-frame/assets/radar-source.html"
+      },
+      "date": 1622651101478
+    },
+    {
+      "type": "edit",
+      "id": "1ae926f5e3057b1f",
+      "item": {
+        "type": "code",
+        "id": "1ae926f5e3057b1f",
+        "text": "//dobbs.github.io/wiki-plugin-frame/assets/radar-source.html\nHEIGHT 175\nSOURCE radar"
+      },
+      "date": 1622651106262
+    },
+    {
+      "type": "edit",
+      "id": "e89693d5670791d3",
+      "item": {
+        "type": "frame",
+        "id": "e89693d5670791d3",
+        "text": "//dobbs.github.io/wiki-plugin-frame/assets/radar-source.js\nHEIGHT 725"
+      },
+      "date": 1622651117605
+    },
+    {
+      "type": "edit",
+      "id": "e89693d5670791d3",
+      "item": {
+        "type": "frame",
+        "id": "e89693d5670791d3",
+        "text": "//dobbs.github.io/wiki-plugin-frame/assets/radar-source.js\nHEIGHT 710"
+      },
+      "date": 1622651141605
+    },
+    {
+      "type": "edit",
+      "id": "e89693d5670791d3",
+      "item": {
+        "type": "frame",
+        "id": "e89693d5670791d3",
+        "text": "//dobbs.github.io/wiki-plugin-frame/assets/radar-source.js\nHEIGHT 700"
+      },
+      "date": 1622651151277
+    },
+    {
+      "type": "edit",
+      "id": "4a012433cd8c0da2",
+      "item": {
+        "type": "frame",
+        "id": "4a012433cd8c0da2",
+        "text": "//dobbs.github.io/wiki-plugin-frame/assets/radar-source.html\nHEIGHT 175\nSOURCE radar"
+      },
+      "date": 1622655983834
+    }
+  ]
+}

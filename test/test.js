@@ -96,6 +96,18 @@
       })
     })
 
+    describe('triggerThumb', () => {
+      let $item, actual = []
+      beforeEach(() => {
+        $item = {trigger: (...args) => actual = Array.from(args)}
+      })
+      it('follows the existing jQuery event protocol', () => {
+        frame.triggerThumb($item, "Some Column Heading")
+        expect(actual[0]).to.be("thumb")
+        expect(actual[1]).to.be("Some Column Heading")
+      })
+    })
+
     const result = frame.parse(`https://example.com/something
 caption to offer context to The Reader
 HEIGHT 200
