@@ -10,11 +10,9 @@
     <button id="ghostPage">Ghost Page</button>
     <button id="importPages">Import Pages</button>
     <button id="sendFrameContext">Send Frame Context</button>
-    <pre id="frameContext">
-    </pre>
+    <pre id="frameContext"></pre>
     <button id="showIdentifiers">Show URL Identifiers</button>
-    <pre id="identifiers">
-    </pre>
+    <pre id="identifiers"></pre>
     <script>
      function itemId() {
        return Math.abs(Math.random()*1e20|0).toString(16)
@@ -84,6 +82,10 @@
          if (items)
            document.querySelector('#frameContext')
              .innerHTML = JSON.stringify(items, null, 2);
+         window.parent.postMessage({
+           action:"resize",
+           height: document.body.offsetHeight
+         }, "*")
        }
      }
      document
@@ -100,7 +102,18 @@
        .addEventListener('click', event => {
          const identifiers = Object.fromEntries(new URLSearchParams(window.location.hash.substr(1)).entries());
          document.querySelector('#identifiers').innerHTML = JSON.stringify(identifiers, null, 2);
+         window.parent.postMessage({
+           action:"resize",
+           height: document.body.offsetHeight
+         }, "*")
        })
+
+     window.addEventListener('DOMContentLoaded', () => {
+       window.parent.postMessage({
+         action:"resize",
+         height: document.body.offsetHeight
+       }, "*")
+     })
     </script>
   </body>
 </html>

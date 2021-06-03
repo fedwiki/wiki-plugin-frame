@@ -14,7 +14,7 @@
     {
       "type": "frame",
       "id": "8c64eddb2eeb0fb9",
-      "text": "//dobbs.github.io/wiki-plugin-frame/assets/integrations.html\nHEIGHT 350"
+      "text": "//dobbs.github.io/wiki-plugin-frame/assets/integrations.html"
     },
     {
       "type": "paragraph",
@@ -59,7 +59,7 @@
     {
       "type": "paragraph",
       "id": "abf7af50faf8689a",
-      "text": "In some cases, authors construct framed content that needs to know about other items on the hosting page. This requires that the framed content install a message listener to receive the context information."
+      "text": "In some cases, authors construct framed content that needs to know about other items on the hosting page. This requires that the framed content install a message listener to receive the context information, and post a message requesting the frame context."
     },
     {
       "type": "code",
@@ -69,7 +69,32 @@
     {
       "type": "markdown",
       "id": "e0a9022389d50bd9",
+      "text": "\n"
+    },
+    {
+      "type": "markdown",
+      "id": "13f5690ca4b8efff",
+      "text": "# Resize To Frame Content\n"
+    },
+    {
+      "type": "paragraph",
+      "id": "ebddb8b8775d314e",
+      "text": "Framed content can ask the wiki client to resize the height on the page to dynamically match the contents."
+    },
+    {
+      "type": "code",
+      "id": "3ab76a3abb546568",
+      "text": "window.parent.postMessage({\n  action: \"resize\",\n  height: document.body.offsetHeight\n}, \"*\")"
+    },
+    {
+      "type": "markdown",
+      "id": "7c056880458c8aef",
       "text": "# URL Includes Identifiers\n"
+    },
+    {
+      "type": "paragraph",
+      "id": "c0d50a6155ecdb4c",
+      "text": "We anticipate framed content needing information to facilitate collaboration with the wiki client. The following code provides a convenient way to discover the identifiers wiki uses for the page and item which host the framed content."
     },
     {
       "type": "code",
@@ -607,6 +632,179 @@
         "text": "//dev.localhost:3000/assets/integrations.html\nHEIGHT 375"
       },
       "date": 1622316262595
+    },
+    {
+      "type": "edit",
+      "id": "abf7af50faf8689a",
+      "item": {
+        "type": "paragraph",
+        "id": "abf7af50faf8689a",
+        "text": "In some cases, authors construct framed content that needs to know about other items on the hosting page. This requires that the framed content install a message listener to receive the context information, and post a message requesting the frame context."
+      },
+      "date": 1622735901561
+    },
+    {
+      "type": "add",
+      "id": "c0d50a6155ecdb4c",
+      "item": {
+        "type": "markdown",
+        "id": "c0d50a6155ecdb4c",
+        "text": "We anticipate framed content needing information to facilitate collaboration with the wiki client. The following code provides a convenient way to discover the identifiers wiki uses for the page and item which host the framed content."
+      },
+      "after": "e0a9022389d50bd9",
+      "date": 1622736323110
+    },
+    {
+      "type": "edit",
+      "id": "c0d50a6155ecdb4c",
+      "item": {
+        "type": "paragraph",
+        "id": "c0d50a6155ecdb4c",
+        "text": "We anticipate framed content needing information to facilitate collaboration with the wiki client. The following code provides a convenient way to discover the identifiers wiki uses for the page and item which host the framed content.  "
+      },
+      "date": 1622736332760
+    },
+    {
+      "type": "edit",
+      "id": "c0d50a6155ecdb4c",
+      "item": {
+        "type": "paragraph",
+        "id": "c0d50a6155ecdb4c",
+        "text": "We anticipate framed content needing information to facilitate collaboration with the wiki client. The following code provides a convenient way to discover the identifiers wiki uses for the page and item which host the framed content."
+      },
+      "date": 1622736337232
+    },
+    {
+      "type": "edit",
+      "id": "e0a9022389d50bd9",
+      "item": {
+        "type": "markdown",
+        "id": "e0a9022389d50bd9",
+        "text": "\n"
+      },
+      "date": 1622736345821
+    },
+    {
+      "type": "add",
+      "id": "7c056880458c8aef",
+      "item": {
+        "type": "markdown",
+        "id": "7c056880458c8aef",
+        "text": "# URL Includes Identifiers\n"
+      },
+      "after": "e0a9022389d50bd9",
+      "date": 1622736348115
+    },
+    {
+      "item": {
+        "type": "factory",
+        "id": "13f5690ca4b8efff"
+      },
+      "id": "13f5690ca4b8efff",
+      "type": "add",
+      "after": "c75bdb249c2d20c0",
+      "date": 1622736359926
+    },
+    {
+      "id": "13f5690ca4b8efff",
+      "type": "move",
+      "order": [
+        "6ff6d374a11a6370",
+        "855bf39f7522b7aa",
+        "8c64eddb2eeb0fb9",
+        "3026a5a65dfe6cff",
+        "eadb61e1eb8c3cd3",
+        "63f623e58e40ba66",
+        "5a7e5c8ab791e977",
+        "d5c957014e3db5ea",
+        "5a6b8c587141a3eb",
+        "3de1757fd5b8c9bc",
+        "94c40a06426258f0",
+        "abf7af50faf8689a",
+        "a6dfb82dc84c3ac9",
+        "e0a9022389d50bd9",
+        "13f5690ca4b8efff",
+        "7c056880458c8aef",
+        "c0d50a6155ecdb4c",
+        "dacc2f7fdffebb9e",
+        "f9588b75ae06132f",
+        "0a9a10dbad6de97e",
+        "efed4b56d68046d4",
+        "c75bdb249c2d20c0"
+      ],
+      "date": 1622736370449
+    },
+    {
+      "type": "edit",
+      "id": "13f5690ca4b8efff",
+      "item": {
+        "type": "markdown",
+        "id": "13f5690ca4b8efff",
+        "text": "# Resize To Frame Content\n"
+      },
+      "date": 1622736391351
+    },
+    {
+      "type": "add",
+      "id": "ebddb8b8775d314e",
+      "item": {
+        "type": "factory",
+        "id": "ebddb8b8775d314e",
+        "text": "xyz"
+      },
+      "after": "13f5690ca4b8efff",
+      "date": 1622736394592
+    },
+    {
+      "type": "edit",
+      "id": "ebddb8b8775d314e",
+      "item": {
+        "type": "paragraph",
+        "id": "ebddb8b8775d314e",
+        "text": "Framed content can ask the wiki client to resize the height on the page to dynamically match the contents."
+      },
+      "date": 1622736500647
+    },
+    {
+      "type": "add",
+      "id": "3ab76a3abb546568",
+      "item": {
+        "type": "factory",
+        "id": "3ab76a3abb546568",
+        "text": "window.parent.postMessage({action:})"
+      },
+      "after": "ebddb8b8775d314e",
+      "date": 1622736525622
+    },
+    {
+      "type": "edit",
+      "id": "3ab76a3abb546568",
+      "item": {
+        "type": "code",
+        "id": "3ab76a3abb546568",
+        "text": "window.parent.postMessage({\n  action: \"resize\",\n  height: document.body.offsetHeight\n})"
+      },
+      "date": 1622736585260
+    },
+    {
+      "type": "edit",
+      "id": "3ab76a3abb546568",
+      "item": {
+        "type": "code",
+        "id": "3ab76a3abb546568",
+        "text": "window.parent.postMessage({\n  action: \"resize\",\n  height: document.body.offsetHeight\n}, \"*\")"
+      },
+      "date": 1622736860168
+    },
+    {
+      "type": "edit",
+      "id": "8c64eddb2eeb0fb9",
+      "item": {
+        "type": "frame",
+        "id": "8c64eddb2eeb0fb9",
+        "text": "//dobbs.github.io/wiki-plugin-frame/assets/integrations.html"
+      },
+      "date": 1622736922764
     }
   ]
 }

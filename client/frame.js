@@ -1,5 +1,8 @@
 (function() {
 
+  const resizeFudge = 30
+  const defaultHeight = 150 - resizeFudge
+
   function expand(text) {
     return wiki.resolveLinks(
       text,
@@ -27,7 +30,7 @@
   function parse(text) {
     const [src, ...rest] = text.split("\n")
     let result = validateDomain(src)
-    let height, matchData
+    let height = defaultHeight, matchData
     const caption = []
     const sources = new Set()
     for (let line of rest) {
@@ -63,10 +66,7 @@
       src: `${parsed.src}#${identifiers}`,
       sandbox: parsed.sandbox
     })
-    if (parsed.height) {
-      $item.find('iframe')
-        .attr('height', parsed.height)
-    }
+    resize($item, parsed.height)
     $item.find('p').html(expand(parsed.caption))
   }
 
@@ -110,6 +110,12 @@
     result.addParagraph(`Import of ${Object.keys(pages).length} pages.`)
     result.addItem({type: 'importer', pages})
     wiki.showResult(result, options)
+  }
+
+  function resize($item, height) {
+    const el = $item.get(0)
+    el.dataset.height = height+resizeFudge
+    el.querySelector('iframe').setAttribute('height', height+resizeFudge)
   }
 
   function publishSourceData($item, name, sourceData) {
@@ -166,6 +172,10 @@
     case "importer":
       options = keepLineup ? {} : {$page}
       showImporter(pages, options)
+      break
+    case "resize":
+      let height = data.height || $item.data('height') || defaultHeight
+      resize($item, height)
       break
     case "publishSourceData":
       const {name, sourceData} = data
