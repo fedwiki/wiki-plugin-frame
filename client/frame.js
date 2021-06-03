@@ -35,7 +35,7 @@
     const sources = new Set()
     for (let line of rest) {
       if (matchData = line.match(/^HEIGHT (\w+)/)) {
-        height = matchData[1]
+        height = +matchData[1]
         continue
       } else if (matchData = line.match(/^SOURCE (\w+)/)) {
         sources.add(matchData[1])
@@ -174,7 +174,7 @@
       showImporter(pages, options)
       break
     case "resize":
-      let height = data.height || $item.data('height') || defaultHeight
+      let height = data.height || +$item.data('height') || defaultHeight
       resize($item, height)
       break
     case "publishSourceData":
