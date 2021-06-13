@@ -108,11 +108,30 @@
       })
     })
 
+    describe('LINEUP', () => {
+      it('is recognized', () => {
+        const result = frame.parse("//example.com\nLINEUP point")
+        expect(result).to.have.property('lineups');
+        expect(result)
+          .not.to.have.property('error');
+      });
+      it('accepts many lineups', () => {
+        const result = frame.parse("//example.com\nLINEUP point\nLINEUP turtle")
+        expect(result).to.have.property('lineups');
+        expect(result.lineups).to.be.a(Set)
+        expect(result.lineups.has('point')).to.be.ok()
+        expect(result.lineups.has('turtle')).to.be.ok()
+        expect(result)
+          .not.to.have.property('error');
+      });
+    })
+
     const result = frame.parse(`https://example.com/something
 caption to offer context to The Reader
 HEIGHT 200
 offer many lines to The Author
-SOURCE radar`);
+SOURCE radar
+LINEUP point`);
 
     it('uses first line for IFRAME SRC', () => {
       expect(result.src).to.be('https://example.com/something');

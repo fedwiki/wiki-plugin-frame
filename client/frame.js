@@ -33,12 +33,15 @@
     let height = defaultHeight, matchData
     const caption = []
     const sources = new Set()
+    const lineups = new Set()
     for (let line of rest) {
       if (matchData = line.match(/^HEIGHT (\w+)/)) {
         height = +matchData[1]
         continue
       } else if (matchData = line.match(/^SOURCE (\w+)/)) {
         sources.add(matchData[1])
+      } else if (matchData = line.match(/^LINEUP (\w+)/)) {
+        lineups.add(matchData[1])
       } else {
         caption.push(line)
       }
@@ -48,7 +51,9 @@
       caption: caption.join("\n"),
       sandbox: 'allow-scripts',
       height,
-      sources
+      sources,
+      lineups
+    }
   }
 
   function identifiers($item, item) {
@@ -100,12 +105,24 @@
     const lineup = div.closest('.main')
     const iframe = div.querySelector('iframe')
     const ids = identifiers($item, item)
+    for (let topic of parsed.lineups) {
+      addLineupListener(lineup, iframe, topic)
+    }
     for (let topic of parsed.sources) {
       addSource(div, topic)
     }
     return $item.dblclick(() => {
       return wiki.textEditor($item, item)
     })
+  }
+
+  function addLineupListener(lineup, iframe, topic) {
+    lineup.addEventListener(`${topic}Stream`, ({detail}) =>
+      iframe.contentWindow.postMessage({
+        ...detail,
+        action: `${topic}Stream`
+      }, "*")
+    )
   }
 
   const compatibility = ["radar", "marker", "graph"]
@@ -204,6 +221,8 @@
       resize($item, height)
       break
     case "publishSourceData":
+      // TODO: Question: Which variable name? we use "name" in this
+      // public api, but use "topic" internally.
       const {name, sourceData} = data
       publishSourceData($item, name, sourceData)
       break
