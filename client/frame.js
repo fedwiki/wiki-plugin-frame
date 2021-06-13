@@ -28,8 +28,8 @@
   }
 
   function parse(text) {
-    const [src, ...rest] = text.split("\n")
-    let result = validateDomain(src)
+    const [url, ...rest] = text.split("\n")
+    let src = validateDomain(url)
     let height = defaultHeight, matchData
     const caption = []
     const sources = new Set()
@@ -43,11 +43,12 @@
         caption.push(line)
       }
     }
-    result.sandbox = 'allow-scripts'
-    result.caption = caption.join("\n")
-    result.height = height
-    result.sources = sources
-    return result
+    return {
+      ...src,
+      caption: caption.join("\n"),
+      sandbox: 'allow-scripts',
+      height,
+      sources
   }
 
   function drawFrame($item, item, parsed) {
