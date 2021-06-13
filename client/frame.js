@@ -51,20 +51,23 @@
       sources
   }
 
-  function drawFrame($item, item, parsed) {
-    $item.append('<iframe></iframe><p></p>')
+  function identifiers($item, item) {
     const $page = $item.parents('.page')
-    const identifiers = new URLSearchParams({
+    return {
       pageKey: $page.data("key"),
       itemId: item.id,
       site: $page.data("site") || window.location.host,
       slug: $page.attr("id")
-    }).toString()
+    }
+  }
+
+  function drawFrame($item, item, parsed) {
+    $item.append('<iframe></iframe><p></p>')
+    const params = new URLSearchParams(identifiers($item, item)).toString()
     $item.find('iframe').attr({
-      name: $page.data('key'),
       width: '100%',
       style: 'border: none;',
-      src: `${parsed.src}#${identifiers}`,
+      src: `${parsed.src}#${params}`,
       sandbox: parsed.sandbox
     })
     resize($item, parsed.height)
