@@ -95,9 +95,46 @@
   }
 
   function bind($item, item) {
+    const parsed = parse(item.text)
+    const div = $item.get(0)
+    const lineup = div.closest('.main')
+    const iframe = div.querySelector('iframe')
+    const ids = identifiers($item, item)
+    for (let topic of parsed.sources) {
+      addSource(div, topic)
+    }
     return $item.dblclick(() => {
       return wiki.textEditor($item, item)
     })
+  }
+
+  const compatibility = ["radar", "marker", "graph"]
+
+  function publishSourceData($item, topic, sourceData) {
+    const div = $item.get(0)
+    if (compatibility.includes(topic)) {
+      div[`${topic}Data`] = () => sourceData
+      div.classList.add(`${topic}-source`)
+    }
+    const topicEvent = new CustomEvent(`${topic}Stream`, {
+      ...identifiers($item, $item.data()),
+      bubbles: true,
+      detail: sourceData
+    })
+    div.dispatchEvent(topicEvent)
+  }
+
+  function addSource(div, topic) {
+    if (! compatibility.includes(topic)) {
+      // For backwards compatibility, we only announce our
+      // participation in the topic protocol once we have received
+      // at least one publishSourceData message.
+      div.classList.add(`${topic}-source`)
+    }
+  }
+
+  function triggerThumb($item, thumb) {
+    $item.trigger("thumb", thumb)
   }
 
   function showImporter(pages, options={}) {
@@ -120,16 +157,6 @@
     const el = $item.get(0)
     el.dataset.height = height+resizeFudge
     el.querySelector('iframe').setAttribute('height', height+resizeFudge)
-  }
-
-  function publishSourceData($item, name, sourceData) {
-    const el = $item.get(0)
-    el[`${name}Data`] = () => sourceData
-    el.classList.add(`${name}-source`)
-  }
-
-  function triggerThumb($item, thumb) {
-    $item.trigger("thumb", thumb)
   }
 
   function frameListener(event) {
