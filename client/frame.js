@@ -137,16 +137,11 @@
     const {action, keepLineup=false, pageKey=null, page=null, pages={}, title=null} = data;
     let options
 
-    const $iframe = $("iframe").filter(function() {
-      const $iframe = $(this)
-      return $iframe.get(0).contentWindow === event.source
-    })
+    const $iframe = $("iframe").filter((i,el) => el.contentWindow === event.source)
     const $item = $iframe.parents(".item")
     let $page = null
     if (pageKey != null) {
-      $page = $('.page').filter(function() {
-        return $(this).data('key') === pageKey
-      })
+      $page = $('.page').filter((i, el) => $(el).data('key') == pageKey)
     }
     if ($page == null || $page.length == 0) {
       $page = $iframe.parents('.page')
