@@ -126,7 +126,7 @@ SOURCE radar`);
     });
 
     it('recognizes HEIGHT', () => {
-      expect(result.height).to.be('200');
+      expect(result.height).to.be(200);
     });
   });
 }).call(this);
