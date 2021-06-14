@@ -78,24 +78,6 @@
       });
     })
 
-    describe('publishSourceData', () => {
-      let $item, actual
-      beforeEach(() => {
-        $item = new Map()
-        $item.set(0, {classList: {add: it => actual = it}})
-
-        frame.publishSourceData($item, 'radar', {hello: "world!"})
-      })
-      it('adds a conventional class name to the item: <name>-source', () => {
-        expect(actual).to.be('radar-source')
-      })
-      it('adds a function with a conventional name: <name>Data()', () => {
-        expect($item.get(0)).to.have.property('radarData')
-        expect($item.get(0).radarData).to.be.a('function')
-        expect($item.get(0).radarData()).to.have.property('hello', 'world!')
-      })
-    })
-
     describe('triggerThumb', () => {
       let $item, actual = []
       beforeEach(() => {
