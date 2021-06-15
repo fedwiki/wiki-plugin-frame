@@ -24,7 +24,12 @@
     {
       "type": "markdown",
       "id": "c70196335a0d90a1",
-      "text": "Say **SOURCE** to offer data to other plugins.\nSee [[About Frame Source]]"
+      "text": "Say **SOURCE** to offer data to other plugins.\nSee [[About Frame Source]]\n"
+    },
+    {
+      "type": "markdown",
+      "id": "bbc9fa7b11c6c114",
+      "text": "Say **LINEUP** to request data from other plugins.\nSee [[About Frame Lineup]]"
     },
     {
       "type": "markdown",
@@ -42,9 +47,14 @@
       "text": "//en.m.wikipedia.org/wiki/Extreme_programming\n\nHEIGHT 300\n\nWikipedia offers mobile-friendly URLs which fit nicely within a frame in federated wiki."
     },
     {
-      "type": "paragraph",
+      "type": "markdown",
       "id": "42994bef7efbc924",
-      "text": "Frames offer another avenue for integrating wiki with external services."
+      "text": "# Integrations"
+    },
+    {
+      "type": "paragraph",
+      "id": "0901c04709f17cf6",
+      "text": "Frames offer another avenue for integrating wiki with external services or for prototyping new wiki plugins."
     },
     {
       "type": "paragraph",
@@ -199,6 +209,88 @@
         "text": "Say **SOURCE** to offer data to other plugins.\nSee [[About Frame Source]]"
       },
       "date": 1622566155175
+    },
+    {
+      "type": "edit",
+      "id": "42994bef7efbc924",
+      "item": {
+        "type": "paragraph",
+        "id": "42994bef7efbc924",
+        "text": "# Integrations"
+      },
+      "date": 1623771211533
+    },
+    {
+      "type": "add",
+      "id": "0901c04709f17cf6",
+      "item": {
+        "type": "paragraph",
+        "id": "0901c04709f17cf6",
+        "text": "Frames offer another avenue for integrating wiki with external services."
+      },
+      "after": "42994bef7efbc924",
+      "date": 1623771214177
+    },
+    {
+      "type": "edit",
+      "id": "42994bef7efbc924",
+      "item": {
+        "type": "markdown",
+        "id": "42994bef7efbc924",
+        "text": "# Integrations "
+      },
+      "date": 1623771218858
+    },
+    {
+      "type": "edit",
+      "id": "42994bef7efbc924",
+      "item": {
+        "type": "markdown",
+        "id": "42994bef7efbc924",
+        "text": "# Integrations"
+      },
+      "date": 1623771221907
+    },
+    {
+      "type": "edit",
+      "id": "0901c04709f17cf6",
+      "item": {
+        "type": "paragraph",
+        "id": "0901c04709f17cf6",
+        "text": "Frames offer another avenue for integrating wiki with external services or for prototyping new wiki plugins."
+      },
+      "date": 1623771258948
+    },
+    {
+      "type": "edit",
+      "id": "c70196335a0d90a1",
+      "item": {
+        "type": "markdown",
+        "id": "c70196335a0d90a1",
+        "text": "Say **SOURCE** to offer data to other plugins.\nSee [[About Frame Source]]\n"
+      },
+      "date": 1623771346401
+    },
+    {
+      "type": "add",
+      "id": "bbc9fa7b11c6c114",
+      "item": {
+        "type": "markdown",
+        "id": "bbc9fa7b11c6c114",
+        "text": "Say **LINEUP** to request data from other plugins. See [[About Frame Lineup]]"
+      },
+      "after": "c70196335a0d90a1",
+      "date": 1623771393071
+    },
+    {
+      "type": "edit",
+      "id": "bbc9fa7b11c6c114",
+      "item": {
+        "type": "markdown",
+        "id": "bbc9fa7b11c6c114",
+        "text": "Say **LINEUP** to request data from other plugins.\nSee [[About Frame Lineup]]"
+      },
+      "date": 1623771399462
     }
   ]
 }

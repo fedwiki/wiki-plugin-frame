@@ -4,17 +4,22 @@
     {
       "type": "paragraph",
       "id": "324b86b21d535df0",
-      "text": "The frame plugin can broker communications between frame items."
+      "text": "The frame plugin allows authors to create HTML and javascript programs that offer data to other plugins."
     },
     {
       "type": "paragraph",
       "id": "600c3b6856313372",
-      "text": "In this example a frame declares itself a SOURCE for radar data. Open the radar chart and hover over rows in the table."
+      "text": "In this example, two frames declare themselves a SOURCE for radar data. Open the radar chart and hover over rows in either table."
     },
     {
       "type": "paragraph",
       "id": "1bfac6aad85c1987",
       "text": "[[Discover both Dimensions and Limits]]"
+    },
+    {
+      "type": "paragraph",
+      "id": "9a2c79b3f3122bc4",
+      "text": "These data are randomly generated. Reload either frame to see a different radar chart."
     },
     {
       "type": "frame",
@@ -529,6 +534,60 @@
         "text": "//dobbs.github.io/wiki-plugin-frame/assets/radar-source.html\nSOURCE radar"
       },
       "date": 1622740222337
+    },
+    {
+      "type": "fork",
+      "date": 1623770989140
+    },
+    {
+      "type": "edit",
+      "id": "600c3b6856313372",
+      "item": {
+        "type": "paragraph",
+        "id": "600c3b6856313372",
+        "text": "In this example, two frames declare themselves a SOURCE for radar data. Open the radar chart and hover over rows in either table."
+      },
+      "date": 1623771032719
+    },
+    {
+      "type": "add",
+      "id": "9a2c79b3f3122bc4",
+      "item": {
+        "type": "paragraph",
+        "id": "9a2c79b3f3122bc4",
+        "text": "These data are randomly generated. Reload either frame to see a different radar chart."
+      },
+      "after": "600c3b6856313372",
+      "date": 1623771115440
+    },
+    {
+      "type": "edit",
+      "id": "324b86b21d535df0",
+      "item": {
+        "type": "paragraph",
+        "id": "324b86b21d535df0",
+        "text": "The frame plugin allows authors to create HTML and javascript programs that offer data to other plugins."
+      },
+      "date": 1623771530601
+    },
+    {
+      "id": "1bfac6aad85c1987",
+      "type": "move",
+      "order": [
+        "324b86b21d535df0",
+        "600c3b6856313372",
+        "1bfac6aad85c1987",
+        "9a2c79b3f3122bc4",
+        "4a012433cd8c0da2",
+        "e6147d96b50f70c5",
+        "5b2e99af49035b38",
+        "1ae926f5e3057b1f",
+        "423e340084c72f7c",
+        "454ca8d3d0da2142",
+        "c4c92a908cdcb832",
+        "e89693d5670791d3"
+      ],
+      "date": 1623771533091
     }
   ]
 }

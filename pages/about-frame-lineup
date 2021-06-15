@@ -1,0 +1,55 @@
+{
+  "title": "About Frame Lineup",
+  "story": [
+    {
+      "type": "paragraph",
+      "id": "a16e5f4c16c67a18",
+      "text": "The frame plugin allows authors to create HTML and javascript programs that consume data from other plugins."
+    },
+    {
+      "type": "paragraph",
+      "id": "3f027ebe9eedc497",
+      "text": "The docs about LINEUP are intentionally sparse at the moment. We will allow some time to explore this new capacity before proscribing applications."
+    }
+  ],
+  "journal": [
+    {
+      "type": "create",
+      "item": {
+        "title": "About Frame Lineup",
+        "story": []
+      },
+      "date": 1622317014714
+    },
+    {
+      "item": {
+        "type": "factory",
+        "id": "a16e5f4c16c67a18"
+      },
+      "id": "a16e5f4c16c67a18",
+      "type": "add",
+      "date": 1622318524043
+    },
+    {
+      "type": "edit",
+      "id": "a16e5f4c16c67a18",
+      "item": {
+        "type": "paragraph",
+        "id": "a16e5f4c16c67a18",
+        "text": "The frame plugin allows authors to create HTML and javascript programs that consume data from other plugins."
+      },
+      "date": 1623771631408
+    },
+    {
+      "type": "add",
+      "id": "3f027ebe9eedc497",
+      "item": {
+        "type": "paragraph",
+        "id": "3f027ebe9eedc497",
+        "text": "The docs about LINEUP are intentionally sparse at the moment. We will allow some time to explore this new capacity before proscribing applications."
+      },
+      "after": "a16e5f4c16c67a18",
+      "date": 1623773589079
+    }
+  ]
+}
