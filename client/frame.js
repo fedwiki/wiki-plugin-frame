@@ -62,7 +62,8 @@
       pageKey: $page.data("key"),
       itemId: item.id,
       site: $page.data("site") || window.location.host,
-      slug: $page.attr("id")
+      slug: $page.attr("id"),
+      title: $page.data("data").title
     }
   }
 

@@ -109,7 +109,7 @@
     {
       "type": "code",
       "id": "dacc2f7fdffebb9e",
-      "text": "const identifiers = Object.fromEntries(\n  new URLSearchParams(\n    window.location.hash.substr(1)\n  ).entries()\n)\n\nconsole.log({\n  site: identifiers.site,\n  slug: identifiers.slug,\n  pageKey: identifiers.pageKey,\n  itemId: identifiers.itemId\n})"
+      "text": "const identifiers = Object.fromEntries(\n  new URLSearchParams(\n    window.location.hash.substr(1)\n  ).entries()\n)\n\nconsole.log({\n  title: identifiers.title,\n  site: identifiers.site,\n  slug: identifiers.slug,\n  pageKey: identifiers.pageKey,\n  itemId: identifiers.itemId\n})"
     },
     {
       "type": "paragraph",
@@ -857,6 +857,16 @@
         "text": "document.querySelector(\"button\")\n  addEventListener(\"click\", event => {\n    window.parent.postMessage({\n      action:\"doInternalLink\",\n      title: \"Apparatus\",\n      site: \"wiki.dbbs.co\",\n      keepLineup: event.shiftKey\n    }, \"*\")\n})"
       },
       "date": 1624562970353
+    },
+    {
+      "type": "edit",
+      "id": "dacc2f7fdffebb9e",
+      "item": {
+        "type": "code",
+        "id": "dacc2f7fdffebb9e",
+        "text": "const identifiers = Object.fromEntries(\n  new URLSearchParams(\n    window.location.hash.substr(1)\n  ).entries()\n)\n\nconsole.log({\n  title: identifiers.title,\n  site: identifiers.site,\n  slug: identifiers.slug,\n  pageKey: identifiers.pageKey,\n  itemId: identifiers.itemId\n})"
+      },
+      "date": 1624569311212
     }
   ]
 }
