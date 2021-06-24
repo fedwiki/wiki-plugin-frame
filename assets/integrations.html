@@ -7,6 +7,7 @@
   </head>
   <body>
     <button id="doInternalLink">About Frame Plugin</button>
+    <button id="remotePage">Apparatus (remote page)</button>
     <button id="ghostPage">Ghost Page</button>
     <button id="importPages">Import Pages</button>
     <button id="sendFrameContext">Send Frame Context</button>
@@ -24,6 +25,16 @@
          window.parent.postMessage({
            action:"doInternalLink",
            title: "About Frame Plugin",
+           keepLineup: event.shiftKey
+         }, "*");
+       });
+     document
+       .querySelector('#remotePage')
+       .addEventListener('click', event => {
+         window.parent.postMessage({
+           action:"doInternalLink",
+           title: "Apparatus",
+           site: "wiki.dbbs.co",
            keepLineup: event.shiftKey
          }, "*");
        });

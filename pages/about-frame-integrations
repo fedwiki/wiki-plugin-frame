@@ -34,6 +34,16 @@
     {
       "type": "markdown",
       "id": "5a7e5c8ab791e977",
+      "text": "# Open a Remote Page\n"
+    },
+    {
+      "type": "code",
+      "id": "59166c7782025ace",
+      "text": "document.querySelector(\"button\")\n  addEventListener(\"click\", event => {\n    window.parent.postMessage({\n      action:\"doInternalLink\",\n      title: \"Apparatus\",\n      site: \"wiki.dbbs.co\",\n      keepLineup: event.shiftKey\n    }, \"*\")\n})"
+    },
+    {
+      "type": "markdown",
+      "id": "44deb487442b5a87",
       "text": "# Create a Ghost Page"
     },
     {
@@ -805,6 +815,48 @@
         "text": "//dobbs.github.io/wiki-plugin-frame/assets/integrations.html"
       },
       "date": 1622736922764
+    },
+    {
+      "type": "edit",
+      "id": "5a7e5c8ab791e977",
+      "item": {
+        "type": "markdown",
+        "id": "5a7e5c8ab791e977",
+        "text": "# Open a Remote Page\n"
+      },
+      "date": 1624562770286
+    },
+    {
+      "type": "add",
+      "id": "59166c7782025ace",
+      "item": {
+        "type": "markdown",
+        "id": "59166c7782025ace",
+        "text": "// code\n"
+      },
+      "after": "5a7e5c8ab791e977",
+      "date": 1624562789164
+    },
+    {
+      "type": "add",
+      "id": "44deb487442b5a87",
+      "item": {
+        "type": "markdown",
+        "id": "44deb487442b5a87",
+        "text": "# Create a Ghost Page"
+      },
+      "after": "59166c7782025ace",
+      "date": 1624562790546
+    },
+    {
+      "type": "edit",
+      "id": "59166c7782025ace",
+      "item": {
+        "type": "code",
+        "id": "59166c7782025ace",
+        "text": "document.querySelector(\"button\")\n  addEventListener(\"click\", event => {\n    window.parent.postMessage({\n      action:\"doInternalLink\",\n      title: \"Apparatus\",\n      site: \"wiki.dbbs.co\",\n      keepLineup: event.shiftKey\n    }, \"*\")\n})"
+      },
+      "date": 1624562970353
     }
   ]
 }

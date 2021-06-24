@@ -178,7 +178,8 @@
 
   function frameListener(event) {
     const {data} = event;
-    const {action, keepLineup=false, pageKey=null, page=null, pages={}, title=null} = data;
+    const {action, keepLineup=false, pageKey=null, page=null, pages={},
+           title=null, site=null} = data;
     let options
 
     const $iframe = $("iframe").filter((i,el) => el.contentWindow === event.source)
@@ -207,9 +208,9 @@
       break
     case "doInternalLink":
       if (keepLineup) {
-        wiki.doInternalLink(title)
+        wiki.doInternalLink(title, null, site)
       } else {
-        wiki.doInternalLink(title, $page)
+        wiki.doInternalLink(title, $page, site)
       }
       break
     case "importer":
