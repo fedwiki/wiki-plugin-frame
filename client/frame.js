@@ -126,14 +126,11 @@
     )
   }
 
-  const compatibility = ["radar", "marker", "graph"]
 
   function publishSourceData($item, topic, sourceData) {
     const div = $item.get(0)
-    if (compatibility.includes(topic)) {
-      div[`${topic}Data`] = () => sourceData
-      div.classList.add(`${topic}-source`)
-    }
+    div[`${topic}Data`] = () => sourceData
+    addSource(div, topic)
     const topicEvent = new CustomEvent(`${topic}Stream`, {
       ...identifiers($item, $item.data()),
       bubbles: true,
@@ -143,12 +140,7 @@
   }
 
   function addSource(div, topic) {
-    if (! compatibility.includes(topic)) {
-      // For backwards compatibility, we only announce our
-      // participation in the topic protocol once we have received
-      // at least one publishSourceData message.
-      div.classList.add(`${topic}-source`)
-    }
+    div.classList.add(`${topic}-source`)
   }
 
   function triggerThumb($item, thumb) {
