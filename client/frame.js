@@ -126,6 +126,35 @@
     )
   }
 
+  function requestSourceData($item, topic) {
+    // script must register listener for requested data -- the callback from plugin
+    // script must postMessage to plugin to request data from NEAREST topic-source
+
+    // plugin must listen for requests from the script for the topicData()
+    // plugin must find nearset topic-source
+    // plugin must request data from topicData()
+    // plugin must postMessage() with the requested data
+
+    let nearest = null
+    for (let div of document.querySelectorAll(`.item`)) {
+      if (div.classList.contains(`${topic}-source`)) {
+        nearest = div
+      }
+      if (div === $item.get(0)) {
+        break
+      }
+    }
+    let sourceData = {}
+    if (nearest) {
+      sourceData = nearest[`${topic}Data`]()
+    } else {
+      sourceData = {
+        error: `cannot find a source for "${topic}" in the lineup`,
+        ids: identifiers($item, $item.data())
+      }
+    }
+    return sourceData
+  }
 
   function publishSourceData($item, topic, sourceData) {
     const div = $item.get(0)
@@ -187,6 +216,7 @@
       $page = $iframe.parents('.page')
     }
 
+    let {name, topic, sourceData} = data
     switch (action) {
     case "sendFrameContext":
       event.source.postMessage({
@@ -216,10 +246,16 @@
       let height = data.height || +$item.data('height') || defaultHeight
       resize($item, height)
       break
+    case "requestSourceData":
+      sourceData = requestSourceData($item, topic)
+      event.source.postMessage({
+        action: "sourceData",
+        topic,
+        sourceData
+      }, "*")
+      break
     case "publishSourceData":
-      // TODO: Question: Which variable name? we use "name" in this
-      // public api, but use "topic" internally.
-      const {name, sourceData} = data
+      // TODO change name to topic
       publishSourceData($item, name, sourceData)
       break
     case "triggerThumb":
