@@ -132,9 +132,11 @@
     div[`${topic}Data`] = () => sourceData
     addSource(div, topic)
     const topicEvent = new CustomEvent(`${topic}Stream`, {
-      ...identifiers($item, $item.data()),
       bubbles: true,
-      detail: sourceData
+      detail: {
+        ...identifiers($item, $item.data()),
+        ...sourceData
+      }
     })
     div.dispatchEvent(topicEvent)
   }
