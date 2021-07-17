@@ -127,22 +127,29 @@
   }
 
   function requestSourceData($item, topic) {
-    let nearest = null
+    let sources = []
     for (let div of document.querySelectorAll(`.item`)) {
       if (div.classList.contains(`${topic}-source`)) {
-        nearest = div
+        sources.unshift(div)
       }
       if (div === $item.get(0)) {
         break
       }
     }
     let sourceData = {}
-    if (nearest) {
-      sourceData = nearest[`${topic}Data`]()
+    if (sources.length > 0) {
+      sourceData = sources.map(div => {
+        let $div = $(div)
+        let result = {
+          panel: identifiers($div, $div.data())
+        }
+        result[`${topic}Data`] = div[`${topic}Data`]()
+        return result
+      })
     } else {
       sourceData = {
         error: `cannot find a source for "${topic}" in the lineup`,
-        ids: identifiers($item, $item.data())
+        ...identifiers($item, $item.data())
       }
     }
     return sourceData
@@ -239,11 +246,11 @@
       resize($item, height)
       break
     case "requestSourceData":
-      sourceData = requestSourceData($item, topic)
+      let sources = requestSourceData($item, topic)
       event.source.postMessage({
         action: "sourceData",
         topic,
-        sourceData
+        sources
       }, "*")
       break
     case "publishSourceData":
