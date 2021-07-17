@@ -127,14 +127,6 @@
   }
 
   function requestSourceData($item, topic) {
-    // script must register listener for requested data -- the callback from plugin
-    // script must postMessage to plugin to request data from NEAREST topic-source
-
-    // plugin must listen for requests from the script for the topicData()
-    // plugin must find nearset topic-source
-    // plugin must request data from topicData()
-    // plugin must postMessage() with the requested data
-
     let nearest = null
     for (let div of document.querySelectorAll(`.item`)) {
       if (div.classList.contains(`${topic}-source`)) {
