@@ -257,6 +257,13 @@
       // TODO change name to topic
       publishSourceData($item, name, sourceData)
       break
+    case "requestNeighborhood":
+      event.source.postMessage({
+        action: "neighborhood",
+        neighborhood: Object.keys(wiki.neighborhood)
+          .filter(key => wiki.neighborhood[key].hasOwnProperty("sitemap"))
+      }, "*")
+      break
     case "triggerThumb":
       const {thumb} = data
       triggerThumb($item, thumb)
