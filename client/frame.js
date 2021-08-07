@@ -245,6 +245,14 @@
       let height = data.height || +$item.data('height') || defaultHeight
       resize($item, height)
       break
+    case "triggerThumb":
+      const {thumb} = data
+      triggerThumb($item, thumb)
+      break
+    case "publishSourceData":
+      // TODO change name to topic
+      publishSourceData($item, name, sourceData)
+      break
     case "requestSourceData":
       let sources = requestSourceData($item, topic)
       event.source.postMessage({
@@ -253,20 +261,12 @@
         sources
       }, "*")
       break
-    case "publishSourceData":
-      // TODO change name to topic
-      publishSourceData($item, name, sourceData)
-      break
     case "requestNeighborhood":
       event.source.postMessage({
         action: "neighborhood",
         neighborhood: Object.keys(wiki.neighborhood)
           .filter(key => wiki.neighborhood[key].hasOwnProperty("sitemap"))
       }, "*")
-      break
-    case "triggerThumb":
-      const {thumb} = data
-      triggerThumb($item, thumb)
       break
     default:
       console.error({where:'frameListener', message: "unknown action", data})
