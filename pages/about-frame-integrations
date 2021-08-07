@@ -112,6 +112,21 @@
       "text": "const identifiers = Object.fromEntries(\n  new URLSearchParams(\n    window.location.hash.substr(1)\n  ).entries()\n)\n\nconsole.log({\n  title: identifiers.title,\n  site: identifiers.site,\n  slug: identifiers.slug,\n  pageKey: identifiers.pageKey,\n  itemId: identifiers.itemId\n})"
     },
     {
+      "type": "markdown",
+      "id": "9aa9a1b638c2bea8",
+      "text": "# Request Neighborhood\n"
+    },
+    {
+      "type": "paragraph",
+      "id": "41d0fd95469c1b90",
+      "text": "An HTML script can ask wiki about the neighborhood. (In this example, we also show an idiom of constructing a promise for the reply from wiki.)"
+    },
+    {
+      "type": "code",
+      "id": "deed012616e27435",
+      "text": "function requestNeighborhood() {\n  return new Promise((resolve, reject) => {\n    window.addEventListener(\"message\", neighborhood)\n    function neighborhood({data}) {\n      if (data.action != \"neighborhood\") return\n      window.removeEventListener(\n        \"message\", neighborhood)\n      resolve(data.neighborhood)\n    }\n    window.parent.postMessage({\n      action: \"requestNeighborhood\"\n    }, \"*\") \n  })\n}\ndocument.querySelector(\"button\")\n .addEventListener(\"click\", async () => {\n  let neighbors = await requestNeighborhood()\n  console.log({neighbors})\n})\n"
+    },
+    {
       "type": "paragraph",
       "id": "f9588b75ae06132f",
       "text": "There are many other resources around the federation about extending wiki in interesting and novel ways."
@@ -867,6 +882,99 @@
         "text": "const identifiers = Object.fromEntries(\n  new URLSearchParams(\n    window.location.hash.substr(1)\n  ).entries()\n)\n\nconsole.log({\n  title: identifiers.title,\n  site: identifiers.site,\n  slug: identifiers.slug,\n  pageKey: identifiers.pageKey,\n  itemId: identifiers.itemId\n})"
       },
       "date": 1624569311212
+    },
+    {
+      "type": "add",
+      "id": "9aa9a1b638c2bea8",
+      "item": {
+        "type": "factory",
+        "id": "9aa9a1b638c2bea8",
+        "text": "# Request "
+      },
+      "after": "dacc2f7fdffebb9e",
+      "date": 1628342026910
+    },
+    {
+      "type": "edit",
+      "id": "9aa9a1b638c2bea8",
+      "item": {
+        "type": "markdown",
+        "id": "9aa9a1b638c2bea8",
+        "text": "# Request Neighborhood\n"
+      },
+      "date": 1628342045351
+    },
+    {
+      "type": "add",
+      "id": "41d0fd95469c1b90",
+      "item": {
+        "type": "factory",
+        "id": "41d0fd95469c1b90",
+        "text": "asdf"
+      },
+      "after": "9aa9a1b638c2bea8",
+      "date": 1628342051428
+    },
+    {
+      "type": "edit",
+      "id": "41d0fd95469c1b90",
+      "item": {
+        "type": "paragraph",
+        "id": "41d0fd95469c1b90",
+        "text": "An HTML script can ask wiki about the neighborhood."
+      },
+      "date": 1628342117167
+    },
+    {
+      "type": "add",
+      "id": "deed012616e27435",
+      "item": {
+        "type": "factory",
+        "id": "deed012616e27435",
+        "text": "# "
+      },
+      "after": "41d0fd95469c1b90",
+      "date": 1628342120693
+    },
+    {
+      "type": "edit",
+      "id": "deed012616e27435",
+      "item": {
+        "type": "code",
+        "id": "deed012616e27435",
+        "text": "document.querySelector(\"button\")\n .addEventListener(\"click\", event => {\npostMessage({}, \"*\") \n})\n"
+      },
+      "date": 1628342180563
+    },
+    {
+      "type": "edit",
+      "id": "deed012616e27435",
+      "item": {
+        "type": "code",
+        "id": "deed012616e27435",
+        "text": "function requestNeighborhood() {\n  return new Promise((resolve, reject) => {\n    window.addEventListener(\"message\", neighborhood)\n    function neighborhood({data}) {\n      if (data.action != \"neighborhood\") return\n      window.removeEventListener(\n        \"message\", neighborhood)\n      resolve(data.neighborhood)\n    }\n    window.parent.postMessage({\n      action: \"requestNeighborhood\"\n    }, \"*\") \n  })\n}\ndocument.querySelector(\"button\")\n .addEventListener(\"click\", async () => {\n  let neighborhood = await requestNeighborhood()\n  document.querySelector(\"#neighborhood\")\n    .\n})\n"
+      },
+      "date": 1628342937379
+    },
+    {
+      "type": "edit",
+      "id": "deed012616e27435",
+      "item": {
+        "type": "code",
+        "id": "deed012616e27435",
+        "text": "function requestNeighborhood() {\n  return new Promise((resolve, reject) => {\n    window.addEventListener(\"message\", neighborhood)\n    function neighborhood({data}) {\n      if (data.action != \"neighborhood\") return\n      window.removeEventListener(\n        \"message\", neighborhood)\n      resolve(data.neighborhood)\n    }\n    window.parent.postMessage({\n      action: \"requestNeighborhood\"\n    }, \"*\") \n  })\n}\ndocument.querySelector(\"button\")\n .addEventListener(\"click\", async () => {\n  let neighbors = await requestNeighborhood()\n  console.log({neighbors})\n})\n"
+      },
+      "date": 1628343026340
+    },
+    {
+      "type": "edit",
+      "id": "41d0fd95469c1b90",
+      "item": {
+        "type": "paragraph",
+        "id": "41d0fd95469c1b90",
+        "text": "An HTML script can ask wiki about the neighborhood. (In this example, we also show an idiom of constructing a promise for the reply from wiki.)"
+      },
+      "date": 1628343187783
     }
   ]
 }

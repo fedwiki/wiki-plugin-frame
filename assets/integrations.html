@@ -6,14 +6,16 @@
     <style>body {display: flex; flex-direction: column;}</style>
   </head>
   <body>
-    <button id="doInternalLink">About Frame Plugin</button>
-    <button id="remotePage">Apparatus (remote page)</button>
+    <button id="doInternalLink">Existing Page</button>
+    <button id="remotePage">Remote Page</button>
     <button id="ghostPage">Ghost Page</button>
     <button id="importPages">Import Pages</button>
     <button id="sendFrameContext">Send Frame Context</button>
     <pre id="frameContext"></pre>
     <button id="showIdentifiers">Show URL Identifiers</button>
     <pre id="identifiers"></pre>
+    <button id="requestNeighborhood">Request Neighborhood</button>
+    <pre id="neighborhood"></pre>
     <script>
      function itemId() {
        return Math.abs(Math.random()*1e20|0).toString(16)
@@ -106,6 +108,7 @@
          window.parent.postMessage({
            action:"sendFrameContext"
          }, "*");
+         resize()
        });
 
      document
@@ -117,14 +120,40 @@
            action:"resize",
            height: document.body.offsetHeight
          }, "*")
+         resize()
+       })
+     function requestNeighborhood() {
+       return new Promise((resolve, reject) => {
+         window.addEventListener("message", neighborhood)
+         function neighborhood({data}) {
+           if (data.action != "neighborhood") return
+           window.removeEventListener(
+             "message", neighborhood)
+           resolve(data.neighborhood)
+         }
+         window.parent.postMessage({
+           action: "requestNeighborhood"
+         }, "*")
+       })
+     }
+     document
+       .querySelector("#requestNeighborhood")
+       .addEventListener("click", async () => {
+         let neighbors = await requestNeighborhood()
+         document
+           .querySelector("#neighborhood")
+           .innerHTML = JSON.stringify(neighbors, null, 2)
+         resize()
        })
 
-     window.addEventListener('DOMContentLoaded', () => {
+
+     window.addEventListener('DOMContentLoaded', resize)
+     function resize() {
        window.parent.postMessage({
          action:"resize",
          height: document.body.offsetHeight
        }, "*")
-     })
+     }
     </script>
   </body>
 </html>
