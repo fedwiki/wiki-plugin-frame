@@ -49,7 +49,6 @@
     return {
       ...src,
       caption: caption.join("\n"),
-      sandbox: 'allow-scripts',
       height,
       sources,
       lineups
@@ -68,16 +67,19 @@
   }
 
   function drawFrame($item, item, parsed) {
-    $item.append('<iframe></iframe><p></p>')
     const params = new URLSearchParams(identifiers($item, item)).toString()
-    $item.find('iframe').attr({
-      width: '100%',
-      style: 'border: none;',
-      src: `${parsed.src}#${params}`,
-      sandbox: parsed.sandbox
-    })
+    const frame = document.createElement('iframe')
+    for (let [attr, value] of [
+      ['sandbox', 'allow-scripts'],
+      ['width', '100%'],
+      ['style', 'border: none;'],
+      ['src', `${parsed.src}#${params}`]
+    ]) {
+      frame.setAttribute(attr, value)
+    }
+    $item.append(frame)
+    $item.append($('<p>').html(expand(parsed.caption)))
     resize($item, parsed.height)
-    $item.find('p').html(expand(parsed.caption))
   }
 
   function drawError($item, item, parsed) {
