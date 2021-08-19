@@ -70,7 +70,7 @@
     const params = new URLSearchParams(identifiers($item, item)).toString()
     const frame = document.createElement('iframe')
     for (let [attr, value] of [
-      ['sandbox', 'allow-scripts'],
+      ['sandbox', 'allow-scripts allow-downloads allow-forms'],
       ['width', '100%'],
       ['style', 'border: none;'],
       ['src', `${parsed.src}#${params}`]
