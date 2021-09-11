@@ -24,12 +24,12 @@
     {
       "type": "frame",
       "id": "4a012433cd8c0da2",
-      "text": "//dobbs.github.io/wiki-plugin-frame/assets/radar-source.html\nSOURCE radar"
+      "text": "PLUGIN frame/radar-source.html\nSOURCE radar"
     },
     {
       "type": "frame",
       "id": "e6147d96b50f70c5",
-      "text": "//dobbs.github.io/wiki-plugin-frame/assets/radar-source.html\nSOURCE radar"
+      "text": "PLUGIN frame/radar-source.html\nSOURCE radar"
     },
     {
       "type": "paragraph",
@@ -39,7 +39,7 @@
     {
       "type": "code",
       "id": "1ae926f5e3057b1f",
-      "text": "//dobbs.github.io/wiki-plugin-frame/assets/radar-source.html\nSOURCE radar"
+      "text": "PLUGIN frame/radar-source.html\nSOURCE radar"
     },
     {
       "type": "paragraph",
@@ -59,7 +59,7 @@
     {
       "type": "frame",
       "id": "e89693d5670791d3",
-      "text": "//dobbs.github.io/wiki-plugin-frame/assets/radar-source.js\nHEIGHT 700"
+      "text": "PLUGIN frame/radar-source.js\nHEIGHT 700"
     }
   ],
   "journal": [
@@ -588,6 +588,46 @@
         "e89693d5670791d3"
       ],
       "date": 1623771533091
+    },
+    {
+      "type": "edit",
+      "id": "4a012433cd8c0da2",
+      "item": {
+        "type": "frame",
+        "id": "4a012433cd8c0da2",
+        "text": "PLUGIN frame/radar-source.html\nSOURCE radar"
+      },
+      "date": 1631372387260
+    },
+    {
+      "type": "edit",
+      "id": "e6147d96b50f70c5",
+      "item": {
+        "type": "frame",
+        "id": "e6147d96b50f70c5",
+        "text": "PLUGIN frame/radar-source.html\nSOURCE radar"
+      },
+      "date": 1631372397184
+    },
+    {
+      "type": "edit",
+      "id": "e89693d5670791d3",
+      "item": {
+        "type": "frame",
+        "id": "e89693d5670791d3",
+        "text": "PLUGIN frame/radar-source.js\nHEIGHT 700"
+      },
+      "date": 1631372461362
+    },
+    {
+      "type": "edit",
+      "id": "1ae926f5e3057b1f",
+      "item": {
+        "type": "code",
+        "id": "1ae926f5e3057b1f",
+        "text": "PLUGIN frame/radar-source.html\nSOURCE radar"
+      },
+      "date": 1631372500756
     }
   ]
 }

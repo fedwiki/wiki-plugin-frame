@@ -14,7 +14,7 @@
     {
       "type": "frame",
       "id": "8c64eddb2eeb0fb9",
-      "text": "//dobbs.github.io/wiki-plugin-frame/assets/integrations.html"
+      "text": "PLUGIN frame/integrations.html"
     },
     {
       "type": "paragraph",
@@ -975,6 +975,16 @@
         "text": "An HTML script can ask wiki about the neighborhood. (In this example, we also show an idiom of constructing a promise for the reply from wiki.)"
       },
       "date": 1628343187783
+    },
+    {
+      "type": "edit",
+      "id": "8c64eddb2eeb0fb9",
+      "item": {
+        "type": "frame",
+        "id": "8c64eddb2eeb0fb9",
+        "text": "PLUGIN frame/integrations.html"
+      },
+      "date": 1631372547216
     }
   ]
 }

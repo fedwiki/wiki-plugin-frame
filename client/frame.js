@@ -14,13 +14,14 @@
     )
   }
 
-  function validateDomain(url) {
-    const re = /^(?:https?:)?\/\/((([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,}|localhost)(:[0-9]{2,})?)(\/|$)/i
-    const matchData = url.match(re)
-    const src = url
-    if (matchData) {
+  function validateSrc(line) {
+    const re = /^(https?:)?\/\/((([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,}|localhost)(:[0-9]{2,})?)(\/|$)/i
+    let matchData, src = line
+    if (matchData = line.match(re)) {
       const hostname = matchData[1]
       return {src, hostname}
+    } else if (matchData = line.match(/^PLUGIN (.+)$/)) {
+      return {src: `/plugins/${matchData[1]}`}
     } else {
       const error = 'Error: frame src must include domain name'
       return {src, error}
@@ -28,8 +29,8 @@
   }
 
   function parse(text) {
-    const [url, ...rest] = text.split("\n")
-    let src = validateDomain(url)
+    const [line, ...rest] = text.split("\n")
+    let src = validateSrc(line)
     let height = defaultHeight, matchData
     const caption = []
     const sources = new Set()

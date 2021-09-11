@@ -51,6 +51,13 @@
         expect(result)
           .not.to.have.property('error');
       })
+      it('accepts PLUGIN keyword', () => {
+        const result = frame.parse('PLUGIN frame/integrations.html');
+        expect(result)
+          .to.have.property('src', '/plugins/frame/integrations.html');
+        expect(result)
+          .not.to.have.property('error');
+      });
       it('rejects missing domain', () => {
         const result = frame.parse('/some/path.html');
         expect(result)

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Do Internal Link</title>
+    <style>body {display: flex; flex-direction: column;}</style>
+  </head>
+  <body>
+    <button id="doInternalLink">Existing Page</button>
+    <button id="remotePage">Remote Page</button>
+    <button id="ghostPage">Ghost Page</button>
+    <button id="importPages">Import Pages</button>
+    <button id="sendFrameContext">Send Frame Context</button>
+    <pre id="frameContext"></pre>
+    <button id="showIdentifiers">Show URL Identifiers</button>
+    <pre id="identifiers"></pre>
+    <button id="requestNeighborhood">Request Neighborhood</button>
+    <pre id="neighborhood"></pre>
+    <script>
+     function itemId() {
+       return Math.abs(Math.random()*1e20|0).toString(16)
+     }
+
+     document
+       .querySelector('#doInternalLink')
+       .addEventListener('click', event => {
+         window.parent.postMessage({
+           action:"doInternalLink",
+           title: "About Frame Plugin",
+           keepLineup: event.shiftKey
+         }, "*");
+       });
+     document
+       .querySelector('#remotePage')
+       .addEventListener('click', event => {
+         window.parent.postMessage({
+           action:"doInternalLink",
+           title: "Apparatus",
+           site: "wiki.dbbs.co",
+           keepLineup: event.shiftKey
+         }, "*");
+       });
+     document
+       .querySelector('#ghostPage')
+       .addEventListener('click', event => {
+         window.parent.postMessage({
+           action:"showResult",
+           page: {
+             title: "Hello, World!", story: [
+               {
+                 type: "paragraph",
+                 text: "Greetings from frame content!",
+                 id: Math.abs(Math.random()*1e20|0)
+                         .toString(16)
+               }
+           ]},
+           keepLineup: event.shiftKey
+         }, "*");
+       });
+     document
+       .querySelector('#importPages')
+       .addEventListener('click', event => {
+         window.parent.postMessage({
+           action:"importer",
+           pages: {
+             "hello-world": {
+               title: "Hello, World!", story: [
+                 {
+                   type: "paragraph",
+                   text: "Greetings from frame content!",
+                   id: itemId()
+                 }
+             ]},
+             "greetings-programs": {
+               title: "Greetings, Programs!", story: [
+                 {
+                   type: "paragraph",
+                   text: "We're inside the MCP cone!",
+                   id: itemId()
+                 }
+             ]}
+           },
+           keepLineup: event.shiftKey
+         }, "*");
+       });
+
+     window.addEventListener("message", handleFrameContext)
+     function handleFrameContext ({data}) {
+       console.log("message received", data)
+       if (data.action == "frameContext") {
+         window.removeEventListener("message", handleFrameContext)
+         const {site, slug, item, page: {title, story}} = data
+         const items = story.reduce((acc, {type}) => (acc[type] = (acc[type]||0)+1, acc), {})
+         console.log({title, items})
+         if (items)
+           document.querySelector('#frameContext')
+             .innerHTML = JSON.stringify(items, null, 2);
+         window.parent.postMessage({
+           action:"resize",
+           height: document.body.offsetHeight
+         }, "*")
+       }
+     }
+     document
+       .querySelector('#sendFrameContext')
+       .addEventListener('click', event => {
+         console.log("sendFrameContext clicked!");
+         window.parent.postMessage({
+           action:"sendFrameContext"
+         }, "*");
+         resize()
+       });
+
+     document
+       .querySelector('#showIdentifiers')
+       .addEventListener('click', event => {
+         const identifiers = Object.fromEntries(new URLSearchParams(window.location.hash.substr(1)).entries());
+         document.querySelector('#identifiers').innerHTML = JSON.stringify(identifiers, null, 2);
+         window.parent.postMessage({
+           action:"resize",
+           height: document.body.offsetHeight
+         }, "*")
+         resize()
+       })
+     function requestNeighborhood() {
+       return new Promise((resolve, reject) => {
+         window.addEventListener("message", neighborhood)
+         function neighborhood({data}) {
+           if (data.action != "neighborhood") return
+           window.removeEventListener(
+             "message", neighborhood)
+           resolve(data.neighborhood)
+         }
+         window.parent.postMessage({
+           action: "requestNeighborhood"
+         }, "*")
+       })
+     }
+     document
+       .querySelector("#requestNeighborhood")
+       .addEventListener("click", async () => {
+         let neighbors = await requestNeighborhood()
+         document
+           .querySelector("#neighborhood")
+           .innerHTML = JSON.stringify(neighbors, null, 2)
+         resize()
+       })
+
+
+     window.addEventListener('DOMContentLoaded', resize)
+     function resize() {
+       window.parent.postMessage({
+         action:"resize",
+         height: document.body.offsetHeight
+       }, "*")
+     }
+    </script>
+  </body>
+</html>
