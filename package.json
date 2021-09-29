@@ -34,8 +34,5 @@
   },
   "bugs": {
     "url": "https://github.com/dobbs/wiki-plugin-frame/issues"
-  },
-  "engines": {
-    "node": "8"
   }
 }
