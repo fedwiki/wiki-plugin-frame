@@ -21,7 +21,15 @@
       const hostname = matchData[1]
       return {src, hostname}
     } else if (matchData = line.match(/^PLUGIN (.+)$/)) {
-      return {src: `/plugins/${matchData[1]}`}
+      try {
+        src = new URL(`/plugins/${matchData[1]}`, window.document.baseURI).toString()
+        return {src}
+      } catch (error) {
+        if (! error instanceof TypeError) {
+          throw(error)
+        }
+        return {src, error}
+      }
     } else {
       const error = 'Error: frame src must include domain name'
       return {src, error}

@@ -51,13 +51,25 @@
         expect(result)
           .not.to.have.property('error');
       })
-      it('accepts PLUGIN keyword', () => {
-        const result = frame.parse('PLUGIN frame/integrations.html');
-        expect(result)
-          .to.have.property('src', '/plugins/frame/integrations.html');
-        expect(result)
-          .not.to.have.property('error');
-      });
+      context("PLUGIN keyword", () => {
+        beforeEach(() => {
+          window = {document: {baseURI: "https://example.com"}}
+        })
+        it('is accepted', () => {
+          const result = frame.parse('PLUGIN frame/integrations.html');
+          expect(result)
+            .to.have.property('src', 'https://example.com/plugins/frame/integrations.html');
+          expect(result)
+            .not.to.have.property('error');
+        });
+        it('encodes invalid characters in PLUGIN', () => {
+          const result = frame.parse('PLUGIN frame/invalid{characters}');
+          expect(result)
+            .to.have.property('src', 'https://example.com/plugins/frame/invalid%7Bcharacters%7D');
+          expect(result)
+            .not.to.have.property('error');
+        });
+      })
       it('rejects missing domain', () => {
         const result = frame.parse('/some/path.html');
         expect(result)
