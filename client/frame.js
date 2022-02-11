@@ -61,6 +61,7 @@
     return {
       pageKey: $page.data("key"),
       itemId: item.id,
+      origin: window.origin,
       site: $page.data("site") || window.location.host,
       slug: $page.attr("id"),
       title: $page.data("data").title
@@ -223,8 +224,7 @@
     case "sendFrameContext":
       event.source.postMessage({
         action: "frameContext",
-        site: $page.data("site") || window.location.host,
-        slug: $page.attr("id"),
+        ...identifiers($item, $item.data()),
         item: $item.data("item"),
         page: $page.data("data")
       }, "*")

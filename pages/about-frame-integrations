@@ -74,7 +74,7 @@
     {
       "type": "code",
       "id": "a6dfb82dc84c3ac9",
-      "text": "window.addEventListener(\"message\", handleFrameContext)\nfunction handleFrameContext ({data}) {\n  console.log(\"message received\", data)\n  if (data.action == \"frameContext\") {\n    window.removeEventListener(\n      \"message\", handleFrameContext)\n    const {site, slug, item, \n      page: {title, story}} = data\n    const items = story.reduce((acc, {type}) => {\n      acc[type] = (acc[type]||0)+1\n      return acc\n    }, {})\n    console.log({title, items})\n  }\n}\n\nwindow.addEventListener(\n  \"DOMContentLoaded\",\n  () => window.parent.postMessage({\n    action: \"sendFrameContext\"\n  }, \"*\")\n)"
+      "text": "window.addEventListener(\"message\", handleFrameContext)\nfunction handleFrameContext ({data}) {\n  console.log(\"message received\", data)\n  if (data.action == \"frameContext\") {\n    window.removeEventListener(\n      \"message\", handleFrameContext)\n    const {pageKey, itemId, origin, site, slug, item, \n      page: {title, story}} = data\n    const items = story.reduce((acc, {type}) => {\n      acc[type] = (acc[type]||0)+1\n      return acc\n    }, {})\n    console.log({title, items})\n  }\n}\n\nwindow.addEventListener(\n  \"DOMContentLoaded\",\n  () => window.parent.postMessage({\n    action: \"sendFrameContext\"\n  }, \"*\")\n)"
     },
     {
       "type": "markdown",
@@ -109,7 +109,7 @@
     {
       "type": "code",
       "id": "dacc2f7fdffebb9e",
-      "text": "const identifiers = Object.fromEntries(\n  new URLSearchParams(\n    window.location.hash.substr(1)\n  ).entries()\n)\n\nconsole.log({\n  title: identifiers.title,\n  site: identifiers.site,\n  slug: identifiers.slug,\n  pageKey: identifiers.pageKey,\n  itemId: identifiers.itemId\n})"
+      "text": "const identifiers = Object.fromEntries(\n  new URLSearchParams(\n    window.location.hash.substr(1)\n  ).entries()\n)\n\nconsole.log({\n  origin: identifiers.origin,\n  title: identifiers.title,\n  site: identifiers.site,\n  slug: identifiers.slug,\n  pageKey: identifiers.pageKey,\n  itemId: identifiers.itemId\n})"
     },
     {
       "type": "markdown",
@@ -985,6 +985,36 @@
         "text": "PLUGIN frame/integrations.html"
       },
       "date": 1631372547216
+    },
+    {
+      "type": "edit",
+      "id": "dacc2f7fdffebb9e",
+      "item": {
+        "type": "code",
+        "id": "dacc2f7fdffebb9e",
+        "text": "const identifiers = Object.fromEntries(\n  new URLSearchParams(\n    window.location.hash.substr(1)\n  ).entries()\n)\n\nconsole.log({\n  origin: identifiers.origin,\n  title: identifiers.title,\n  site: identifiers.site,\n  slug: identifiers.slug,\n  pageKey: identifiers.pageKey,\n  itemId: identifiers.itemId\n})"
+      },
+      "date": 1636212441494
+    },
+    {
+      "type": "edit",
+      "id": "a6dfb82dc84c3ac9",
+      "item": {
+        "type": "code",
+        "id": "a6dfb82dc84c3ac9",
+        "text": "window.addEventListener(\"message\", handleFrameContext)\nfunction handleFrameContext ({data}) {\n  console.log(\"message received\", data)\n  if (data.action == \"frameContext\") {\n    window.removeEventListener(\n      \"message\", handleFrameContext)\n    const {origin, site, slug, item, \n      page: {title, story}} = data\n    const items = story.reduce((acc, {type}) => {\n      acc[type] = (acc[type]||0)+1\n      return acc\n    }, {})\n    console.log({title, items})\n  }\n}\n\nwindow.addEventListener(\n  \"DOMContentLoaded\",\n  () => window.parent.postMessage({\n    action: \"sendFrameContext\"\n  }, \"*\")\n)"
+      },
+      "date": 1636212493206
+    },
+    {
+      "type": "edit",
+      "id": "a6dfb82dc84c3ac9",
+      "item": {
+        "type": "code",
+        "id": "a6dfb82dc84c3ac9",
+        "text": "window.addEventListener(\"message\", handleFrameContext)\nfunction handleFrameContext ({data}) {\n  console.log(\"message received\", data)\n  if (data.action == \"frameContext\") {\n    window.removeEventListener(\n      \"message\", handleFrameContext)\n    const {pageKey, itemId, origin, site, slug, item, \n      page: {title, story}} = data\n    const items = story.reduce((acc, {type}) => {\n      acc[type] = (acc[type]||0)+1\n      return acc\n    }, {})\n    console.log({title, items})\n  }\n}\n\nwindow.addEventListener(\n  \"DOMContentLoaded\",\n  () => window.parent.postMessage({\n    action: \"sendFrameContext\"\n  }, \"*\")\n)"
+      },
+      "date": 1636212550420
     }
   ]
 }
