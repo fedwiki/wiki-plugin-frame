@@ -79,6 +79,37 @@
       });
     });
 
+    describe('sandboxFor', () => {
+      describe('when origin differs from frame src', () => {
+        beforeEach(() => {
+          window = {origin: 'http://wiki.example.com'}
+        })
+        it('permits allow-same-origin', () => {
+          const result = frame.sandboxFor('http://frame.example.com/')
+          expect(result).to.contain('allow-same-origin')
+        })
+      })
+      describe('when origin equals frame src', () => {
+        beforeEach(() => {
+          window = {origin: 'http://wiki.example.com'}
+        })
+        it('excludes allow-same-origin', () => {
+          const result = frame.sandboxFor('http://wiki.example.com/')
+          expect(result).to.not.contain('allow-same-origin')
+        })
+      })
+      describe('when frame src is protocol-relative', () => {
+        beforeEach(() => {
+          window = {origin: 'http://wiki.example.com'}
+        })
+        it('does not raise errors', () => {
+          expect(frame.sandboxFor)
+            .withArgs('//frame.example.com')
+            .to.not.throwException()
+        })
+      })
+    })
+
     describe('SOURCE', () => {
       it('is recognized', () => {
         const result = frame.parse("//example.com\nSOURCE radar")
