@@ -21,7 +21,15 @@
       const hostname = matchData[1]
       return {src, hostname}
     } else if (matchData = line.match(/^PLUGIN (.+)$/)) {
-      return {src: `/plugins/${matchData[1]}`}
+      try {
+        src = new URL(`/plugins/${matchData[1]}`, window.document.baseURI).toString()
+        return {src}
+      } catch (error) {
+        if (! error instanceof TypeError) {
+          throw(error)
+        }
+        return {src, error}
+      }
     } else {
       const error = 'Error: frame src must include domain name'
       return {src, error}
@@ -68,11 +76,22 @@
     }
   }
 
+  function sandboxFor(url) {
+    if (url.startsWith('//')) {
+      const {protocol} = new URL(window.origin)
+      url = `${protocol}${url}`
+    }
+    return (window.origin == new URL(url).origin)
+          ? 'allow-scripts allow-downloads allow-forms'
+          : 'allow-scripts allow-downloads allow-forms allow-same-origin'
+  }
+
   function drawFrame($item, item, parsed) {
     const params = new URLSearchParams(identifiers($item, item)).toString()
     const frame = document.createElement('iframe')
+    const sandbox = sandboxFor(parsed.src)
     for (let [attr, value] of [
-      ['sandbox', 'allow-scripts allow-downloads allow-forms'],
+      ['sandbox', sandbox],
       ['width', '100%'],
       ['style', 'border: none;'],
       ['src', `${parsed.src}#${params}`]
@@ -287,7 +306,9 @@
 
   if (typeof module !== "undefined" && module !== null) {
     wiki = {resolveLinks: (text, escape) => escape(text)}
-    module.exports = {expand, parse, publishSourceData, triggerThumb}
+    module.exports = {
+      expand, parse, publishSourceData, triggerThumb, sandboxFor
+    }
   }
 
 }).call(this)

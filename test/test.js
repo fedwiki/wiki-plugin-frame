@@ -51,13 +51,25 @@
         expect(result)
           .not.to.have.property('error');
       })
-      it('accepts PLUGIN keyword', () => {
-        const result = frame.parse('PLUGIN frame/integrations.html');
-        expect(result)
-          .to.have.property('src', '/plugins/frame/integrations.html');
-        expect(result)
-          .not.to.have.property('error');
-      });
+      context("PLUGIN keyword", () => {
+        beforeEach(() => {
+          window = {document: {baseURI: "https://example.com"}}
+        })
+        it('is accepted', () => {
+          const result = frame.parse('PLUGIN frame/integrations.html');
+          expect(result)
+            .to.have.property('src', 'https://example.com/plugins/frame/integrations.html');
+          expect(result)
+            .not.to.have.property('error');
+        });
+        it('encodes invalid characters in PLUGIN', () => {
+          const result = frame.parse('PLUGIN frame/invalid{characters}');
+          expect(result)
+            .to.have.property('src', 'https://example.com/plugins/frame/invalid%7Bcharacters%7D');
+          expect(result)
+            .not.to.have.property('error');
+        });
+      })
       it('rejects missing domain', () => {
         const result = frame.parse('/some/path.html');
         expect(result)
@@ -66,6 +78,37 @@
           .to.have.property('error', 'Error: frame src must include domain name');
       });
     });
+
+    describe('sandboxFor', () => {
+      describe('when origin differs from frame src', () => {
+        beforeEach(() => {
+          window = {origin: 'http://wiki.example.com'}
+        })
+        it('permits allow-same-origin', () => {
+          const result = frame.sandboxFor('http://frame.example.com/')
+          expect(result).to.contain('allow-same-origin')
+        })
+      })
+      describe('when origin equals frame src', () => {
+        beforeEach(() => {
+          window = {origin: 'http://wiki.example.com'}
+        })
+        it('excludes allow-same-origin', () => {
+          const result = frame.sandboxFor('http://wiki.example.com/')
+          expect(result).to.not.contain('allow-same-origin')
+        })
+      })
+      describe('when frame src is protocol-relative', () => {
+        beforeEach(() => {
+          window = {origin: 'http://wiki.example.com'}
+        })
+        it('does not raise errors', () => {
+          expect(frame.sandboxFor)
+            .withArgs('//frame.example.com')
+            .to.not.throwException()
+        })
+      })
+    })
 
     describe('SOURCE', () => {
       it('is recognized', () => {
