@@ -135,7 +135,7 @@
     for (let topic of parsed.sources) {
       addSource(div, topic)
     }
-    return $item.dblclick(() => {
+    return $item.on('dblclick', () => {
       return wiki.textEditor($item, item)
     })
   }
