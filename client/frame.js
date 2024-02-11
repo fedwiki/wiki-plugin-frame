@@ -227,7 +227,7 @@
     // events from iframes don't have an opener
     // ensure that the iframe is one of ours
     if (event.source.opener ||
-        !$("iframe").filter((i,el) => el.contentWindow === event.source).parents(".item").hasClass("frame")) { 
+        !$(".item.frame iframe").filter((i,el) => el.contentWindow === event.source)) { 
       if (wiki.debug) {console.log('frameListener - not for us', {event})}
       return
     }
