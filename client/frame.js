@@ -159,8 +159,12 @@
         break
       }
     }
+    // Ugh. A problem described in 4 parts:
+    // 1 of 4. Looks like I was intending to return an object.
     let sourceData = {}
     if (sources.length > 0) {
+      // 2 of 4. But .map() returns an Array. This broke my own "contract"  :-(
+      // 3 of 4. many existing scripts in the wild expect this Array
       sourceData = sources.map(div => {
         let $div = $(div)
         let result = {
@@ -170,6 +174,7 @@
         return result
       })
     } else {
+      // 4 of 4. The error case returns an Object--showing the original intent
       sourceData = {
         error: `cannot find a source for "${topic}" in the lineup`,
         ...identifiers($item, $item.data())
