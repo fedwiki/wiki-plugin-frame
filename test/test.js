@@ -14,6 +14,20 @@
     });
   });
 
+  describe('events', () => {
+    describe('triggerThumb', () => {
+      let $item, actual = [];
+      beforeEach(() => {
+        $item = {trigger: (...args) => actual = Array.from(args)};
+      });
+      it('follows the existing jQuery event protocol', () => {
+        frame.triggerThumb($item, "Some Column Heading");
+        expect(actual[0]).to.be("thumb");
+        expect(actual[1]).to.be("Some Column Heading");
+      });
+    });
+  });
+
   describe('parse', () => {
     describe('SRC', () => {
       it('accepts http', () => {
@@ -126,18 +140,6 @@
         expect(result)
           .not.to.have.property('error');
       });
-    })
-
-    describe('triggerThumb', () => {
-      let $item, actual = []
-      beforeEach(() => {
-        $item = {trigger: (...args) => actual = Array.from(args)}
-      })
-      it('follows the existing jQuery event protocol', () => {
-        frame.triggerThumb($item, "Some Column Heading")
-        expect(actual[0]).to.be("thumb")
-        expect(actual[1]).to.be("Some Column Heading")
-      })
     })
 
     describe('LINEUP', () => {
