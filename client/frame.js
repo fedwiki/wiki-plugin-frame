@@ -232,12 +232,12 @@
     // events from iframes don't have an opener
     // ensure that the iframe is one of ours
     if (event.source.opener ||
-        !$(".item.frame iframe").filter((i,el) => el.contentWindow === event.source)) { 
+        !$(".item.frame iframe").filter((i,el) => el.contentWindow === event.source)) {
       if (wiki.debug) {console.log('frameListener - not for us', {event})}
       return
     }
     if (wiki.debug) {console.log('frameListener - ours', {event})}
-    
+
     const {data} = event;
     const {action, keepLineup=false, pageKey=null, page=null, pages={},
            title=null, site=null} = data;
@@ -253,7 +253,6 @@
       $page = $iframe.parents('.page')
     }
 
-    let {name, topic, sourceData} = data
     switch (action) {
     case "sendFrameContext":
       event.source.postMessage({
@@ -287,6 +286,7 @@
       triggerThumb($item, thumb)
       break
     case "publishSourceData":
+      let {name, topic, sourceData} = data
       // TODO change name to topic
       publishSourceData($item, name, sourceData)
       break
