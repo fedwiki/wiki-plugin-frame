@@ -28,7 +28,7 @@
     });
     describe('publishSourceData', () => {
       context('with mock browser context for origin, location, and DOM', () => {
-        let $item, classList, actualEvent;
+        let $item, div, actualEvent;
         beforeEach(() => {
           // The amount of setup needed for this test is a big code smell.
           // We are mocking jQuery and DOM objects which are pretty tangled.
@@ -39,12 +39,12 @@
             origin: 'https://example.com',
             location: {host: 'example.com'},
           }
-          classList = new Set();
+          div = {
+            classList: new Set(),
+            dispatchEvent(event) {actualEvent = event;}
+          };
           $item = {
-            get(n) {return {
-              classList,
-              dispatchEvent(event) {actualEvent = event;}
-            };},
+            get(n) {return div;},
             data(which='ALL') { /* $item */
               switch(which) {
               case 'ALL': return {id: 'a56fab'};
@@ -80,8 +80,14 @@
           expect(actualEvent.detail).to.have.property('slug', 'some-page-title');
           expect(actualEvent.detail).to.have.property('title', 'Some Page Title');
         });
+        it('adds a topic-source class to the div', () => {
+          expect(div.classList.has('foo-source')).to.equal(true);
+        });
         it('adds an accessor to the div', () => {
-          expect(classList.has('foo-source')).to.equal(true);
+          expect(div).to.have.property('fooData');
+          const data = div.fooData();
+          expect(data).to.have.property('FOO');
+          expect(data.FOO).to.be('BAR');
         });
         it('uses a custom event type for the given topic', () => {
           expect(actualEvent).to.have.property('type', 'fooStream');
