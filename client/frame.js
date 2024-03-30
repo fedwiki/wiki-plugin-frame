@@ -322,7 +322,8 @@
   if (typeof module !== "undefined" && module !== null) {
     wiki = {resolveLinks: (text, escape) => escape(text)}
     module.exports = {
-      expand, parse, publishSourceData, triggerThumb, sandboxFor
+      expand, parse, sandboxFor,
+      triggerThumb, publishSourceData
     }
   }
 
