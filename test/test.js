@@ -71,6 +71,15 @@
 
           frame.publishSourceData($item, 'foo', {FOO:'BAR'});
         });
+        it('includes identifiers from the browser context', () => {
+          expect(actualEvent).to.have.property('detail');
+          expect(actualEvent.detail).to.have.property('pageKey', 'b78fab');
+          expect(actualEvent.detail).to.have.property('itemId', 'a56fab');
+          expect(actualEvent.detail).to.have.property('origin', 'https://example.com');
+          expect(actualEvent.detail).to.have.property('site', 'example.com');
+          expect(actualEvent.detail).to.have.property('slug', 'some-page-title');
+          expect(actualEvent.detail).to.have.property('title', 'Some Page Title');
+        });
         it('adds an accessor to the div', () => {
           expect(classList.has('foo-source')).to.equal(true);
         });
@@ -84,15 +93,6 @@
           expect(actualEvent).to.have.property('detail');
           expect(actualEvent.detail).to.have.property('FOO');
           expect(actualEvent.detail.FOO).to.be('BAR');
-        });
-        it('includes identifiers from the browser context', () => {
-          expect(actualEvent).to.have.property('detail');
-          expect(actualEvent.detail).to.have.property('pageKey', 'b78fab');
-          expect(actualEvent.detail).to.have.property('itemId', 'a56fab');
-          expect(actualEvent.detail).to.have.property('origin', 'https://example.com');
-          expect(actualEvent.detail).to.have.property('site', 'example.com');
-          expect(actualEvent.detail).to.have.property('slug', 'some-page-title');
-          expect(actualEvent.detail).to.have.property('title', 'Some Page Title');
         });
       });
     });
