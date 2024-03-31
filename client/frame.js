@@ -231,8 +231,13 @@
     // is this message for us?
     // events from iframes don't have an opener
     // ensure that the iframe is one of ours
-    if (event.source.opener ||
-        !$(".item.frame iframe").filter((i,el) => el.contentWindow === event.source)) {
+    if (event.source.opener) {
+      if (wiki.debug) {console.log('frameListener - not for us', {event})}
+      return
+    }
+    const $iframe = $(".item.frame iframe")
+          .filter((i,el) => el.contentWindow === event.source);
+    if ($iframe.length <= 0) {
       if (wiki.debug) {console.log('frameListener - not for us', {event})}
       return
     }
@@ -243,7 +248,6 @@
            title=null, site=null} = data;
     let options
 
-    const $iframe = $("iframe").filter((i,el) => el.contentWindow === event.source)
     const $item = $iframe.parents(".item")
     let $page = null
     if (pageKey != null) {
