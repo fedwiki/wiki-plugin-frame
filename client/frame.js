@@ -141,6 +141,10 @@
   }
 
   function addLineupListener(lineup, iframe, topic) {
+    // TODO: there's a memory leak here. Need to prevent adding
+    // duplicate listeners to the DOM. Probably implies keeping an
+    // inventory of listeners we've added to the DOM and probably also
+    // need a garbage collector.
     lineup.addEventListener(`${topic}Stream`, ({detail}) =>
       iframe.contentWindow.postMessage({
         ...detail,
