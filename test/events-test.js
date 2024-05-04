@@ -3,6 +3,7 @@
         expect = require('expect.js');
 
   describe('events', () => {
+
     describe('triggerThumb', () => {
       let $item, actual = [];
       beforeEach(() => {
@@ -14,6 +15,7 @@
         expect(actual[1]).to.be("Some Column Heading");
       });
     });
+
     describe('publishSourceData', () => {
       context('with mock browser context for origin, location, and DOM', () => {
         let $item, div, actualEvent;
@@ -90,6 +92,7 @@
         });
       });
     });
+
   });
 
 }).call(this)
