@@ -1,5 +1,5 @@
 window.addEventListener('DOMContentLoaded', (event) => {
-  const guess = () => Math.floor(6 * Math.random())
+  const guess = () => 1+Math.floor(5 * Math.random())
   function postMessage(message) {
     window.parent.postMessage(message, "*")
   }
@@ -11,7 +11,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
     Availability: guess()
   }
   postMessage({
-    action: "publishSourceData", name: "radar", sourceData
+    action: "publishSourceData", topic: "radar", sourceData
   })
   let table = document.createElement("table")
   for(let [name, value] of Object.entries(sourceData)) {

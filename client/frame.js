@@ -295,8 +295,18 @@
       break
     case "publishSourceData":
       let {name, topic, sourceData} = data
-      // TODO change name to topic
-      publishSourceData($item, name, sourceData)
+      if (!!name && !topic) {
+        const [url='unknown URL'] = $item.data()?.item?.text?.split(/\n/)
+        console.warn(`a frame at ${url} sent a "publishSourceData" action with a "name".
+That action now expects a "topic" instead of "name" (changed in version 0.10.2).
+We recommend sending the following message: `, {
+  action,
+  topic: name,
+  sourceData: '...' // elided to improve signal-to-noise ratio of our warning
+})
+        topic = name
+      }
+      publishSourceData($item, topic, sourceData)
       break
     case "requestSourceData":
       let sources = requestSourceData($item, topic)
