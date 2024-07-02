@@ -18,16 +18,22 @@
 
     describe('publishSourceData', () => {
       context('with mock browser context for origin, location, and DOM', () => {
+        // The amount of setup needed for this context is a big code smell.
+        // We are mocking jQuery and DOM objects which are pretty tangled.
+        // We'll hold our nose for now.
+        // Also, the nature of the code under test works through side effects.
+        // Some amount of mess in the test is to be expected.
         let $item, div, actualEvent;
+        const MOCK_PAGE_KEY = 'b78fab';
+        const MOCK_ITEM_ID = 'a56fab';
+        const MOCK_TITLE = 'Some Page Title';
+        const MOCK_SLUG = 'some-page-title';
+        const MOCK_ORIGIN = 'https://example.com';
+        const MOCK_HOST = (new URL(MOCK_ORIGIN)).host;
         beforeEach(() => {
-          // The amount of setup needed for this test is a big code smell.
-          // We are mocking jQuery and DOM objects which are pretty tangled.
-          // We'll hold our nose for now.
-          // Also, the nature of the code under test works through side effects.
-          // Some amount of mess in the test is to be expected.
           window = {
-            origin: 'https://example.com',
-            location: {host: 'example.com'},
+            origin: MOCK_ORIGIN,
+            location: {host: MOCK_HOST},
           }
           div = {
             classList: new Set(),
@@ -37,22 +43,26 @@
             get(n) {return div;},
             data(which='ALL') { /* $item */
               switch(which) {
-              case 'ALL': return {id: 'a56fab'};
+              case 'ALL': return {id: MOCK_ITEM_ID};
               default: return new Error(`$item.data() unexpected key: ${which}`);
               }
             },
-            parents(_) { /*TODO error if _ is not '.page'? */ return {
-              data(which) { /* $page */
+            parents(_) {
+              if (_ != '.page') {
+                throw new Error(`parents() was expecting '.page' instead of '${_}'`);
+              }
+              return {
+              data(which) { /* mocking $page */
                 switch(which) {
-                case 'key': return 'b78fab';
-                case 'data': return {title:'Some Page Title'};
+                case 'key': return MOCK_PAGE_KEY;
+                case 'data': return {title: MOCK_TITLE};
                 case 'site': return undefined;
                 default: return new Error('unexpected key for data()');
                 }
               },
               attr(which) {
                 switch(which) {
-                case 'id': return 'some-page-title';
+                case 'id': return MOCK_SLUG;
                 default: return new Error('unexpected key for attr()');
                 }
               }
@@ -63,12 +73,12 @@
         });
         it('includes identifiers from the browser context', () => {
           expect(actualEvent).to.have.property('detail');
-          expect(actualEvent.detail).to.have.property('pageKey', 'b78fab');
-          expect(actualEvent.detail).to.have.property('itemId', 'a56fab');
-          expect(actualEvent.detail).to.have.property('origin', 'https://example.com');
-          expect(actualEvent.detail).to.have.property('site', 'example.com');
-          expect(actualEvent.detail).to.have.property('slug', 'some-page-title');
-          expect(actualEvent.detail).to.have.property('title', 'Some Page Title');
+          expect(actualEvent.detail).to.have.property('pageKey', MOCK_PAGE_KEY);
+          expect(actualEvent.detail).to.have.property('itemId', MOCK_ITEM_ID);
+          expect(actualEvent.detail).to.have.property('origin', MOCK_ORIGIN);
+          expect(actualEvent.detail).to.have.property('site', MOCK_HOST);
+          expect(actualEvent.detail).to.have.property('slug', MOCK_SLUG);
+          expect(actualEvent.detail).to.have.property('title', MOCK_TITLE);
         });
         it('adds a topic-source class to the div', () => {
           expect(div.classList.has('foo-source')).to.equal(true);
