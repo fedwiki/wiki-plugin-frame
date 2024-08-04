@@ -128,7 +128,7 @@
     const div = $item.get(0)
     const lineup = div.closest('.main')
     const iframe = div.querySelector('iframe')
-    const ids = identifiers($item, item)
+    const _ids = identifiers($item, item)
     for (const topic of parsed.lineups) {
       addLineupListener(lineup, iframe, topic)
     }
@@ -240,7 +240,7 @@
       return
     }
     const $iframe = $(".item.frame iframe")
-          .filter((i,el) => el.contentWindow === event.source);
+          .filter((_i,el) => el.contentWindow === event.source);
     if ($iframe.length <= 0) {
       if (wiki.debug) {console.log('frameListener - not for us', {event})}
       return
@@ -255,7 +255,7 @@
     const $item = $iframe.parents(".item")
     let $page = null
     if (pageKey != null) {
-      $page = $('.page').filter((i, el) => $(el).data('key') == pageKey)
+      $page = $('.page').filter((_i, el) => $(el).data('key') == pageKey)
     }
     if ($page == null || $page.length == 0) {
       $page = $iframe.parents('.page')
