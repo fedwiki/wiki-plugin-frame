@@ -316,6 +316,7 @@ We recommend sending the following message: `, {
       }
     case "requestSourceData":
       {
+      let {_name, topic, _sourceData} = data
       const sources = requestSourceData($item, topic)
       event.source.postMessage({
         action: "sourceData",
