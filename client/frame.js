@@ -286,14 +286,19 @@
       showImporter(pages, options)
       break
     case "resize":
+      {
       let height = data.height || +$item.data('height') || defaultHeight
       resize($item, height)
       break
+      }
     case "triggerThumb":
+      {
       const {thumb} = data
       triggerThumb($item, thumb)
       break
+      }
     case "publishSourceData":
+      {
       let {name, topic, sourceData} = data
       if (!!name && !topic) {
         const [url='unknown URL'] = $item.data()?.item?.text?.split(/\n/)
@@ -308,7 +313,9 @@ We recommend sending the following message: `, {
       }
       publishSourceData($item, topic, sourceData)
       break
+      }
     case "requestSourceData":
+      {
       let sources = requestSourceData($item, topic)
       event.source.postMessage({
         action: "sourceData",
@@ -316,6 +323,7 @@ We recommend sending the following message: `, {
         sources
       }, "*")
       break
+      }
     case "requestNeighborhood":
       event.source.postMessage({
         action: "neighborhood",
