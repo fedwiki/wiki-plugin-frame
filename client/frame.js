@@ -38,12 +38,12 @@
 
   function parse(text) {
     const [line, ...rest] = text.split("\n")
-    let src = validateSrc(line)
+    const src = validateSrc(line)
     let height = defaultHeight, matchData
     const caption = []
     const sources = new Set()
     const lineups = new Set()
-    for (let line of rest) {
+    for (const line of rest) {
       if (matchData = line.match(/^HEIGHT (\w+)/)) {
         height = +matchData[1]
         continue
@@ -90,7 +90,7 @@
     const params = new URLSearchParams(identifiers($item, item)).toString()
     const frame = document.createElement('iframe')
     const sandbox = sandboxFor(parsed.src)
-    for (let [attr, value] of [
+    for (const [attr, value] of [
       ['sandbox', sandbox],
       ['width', '100%'],
       ['style', 'border: none;'],
@@ -129,10 +129,10 @@
     const lineup = div.closest('.main')
     const iframe = div.querySelector('iframe')
     const ids = identifiers($item, item)
-    for (let topic of parsed.lineups) {
+    for (const topic of parsed.lineups) {
       addLineupListener(lineup, iframe, topic)
     }
-    for (let topic of parsed.sources) {
+    for (const topic of parsed.sources) {
       addSource(div, topic)
     }
     return $item.on('dblclick', () => {
@@ -154,8 +154,8 @@
   }
 
   function requestSourceData($item, topic) {
-    let sources = []
-    for (let div of document.querySelectorAll(`.item`)) {
+    const sources = []
+    for (const div of document.querySelectorAll(`.item`)) {
       if (div.classList.contains(`${topic}-source`)) {
         sources.unshift(div)
       }
@@ -170,8 +170,8 @@
       // 2 of 4. But .map() returns an Array. This broke my own "contract"  :-(
       // 3 of 4. many existing scripts in the wild expect this Array
       sourceData = sources.map(div => {
-        let $div = $(div)
-        let result = {
+        const $div = $(div)
+        const result = {
           panel: identifiers($div, $div.data())
         }
         result[`${topic}Data`] = div[`${topic}Data`]()
@@ -215,7 +215,7 @@
     // pages. here we hack a default date to allow frame authors to
     // create pages without journals
     const date = new Date();
-    for (let p of Object.values(pages)) {
+    for (const p of Object.values(pages)) {
       if (typeof p.journal === "undefined" || p.journal == null) {
         p.journal = [{date}]
       }
@@ -287,7 +287,7 @@
       break
     case "resize":
       {
-      let height = data.height || +$item.data('height') || defaultHeight
+      const height = data.height || +$item.data('height') || defaultHeight
       resize($item, height)
       break
       }
@@ -316,7 +316,7 @@ We recommend sending the following message: `, {
       }
     case "requestSourceData":
       {
-      let sources = requestSourceData($item, topic)
+      const sources = requestSourceData($item, topic)
       event.source.postMessage({
         action: "sourceData",
         topic,
