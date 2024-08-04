@@ -261,6 +261,7 @@
       $page = $iframe.parents('.page')
     }
 
+    let {name, topic, sourceData} = data
     switch (action) {
     case "sendFrameContext":
       event.source.postMessage({
@@ -294,7 +295,6 @@
       triggerThumb($item, thumb)
       break
     case "publishSourceData":
-      let {name, topic, sourceData} = data
       if (!!name && !topic) {
         const [url='unknown URL'] = $item.data()?.item?.text?.split(/\n/)
         console.warn(`a frame at ${url} sent a "publishSourceData" action with a "name".
