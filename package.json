@@ -14,17 +14,16 @@
     "url": "https://dobbse.net"
   },
   "contributors": [
-    "Eric Dobbs <eric@dobbse.net>"
+    "Eric Dobbs <eric@dobbse.net>",
+    "Paul Rodwell <paul.rodwell@btinternet.com>"
   ],
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "update-authors": "node scripts/update-authors.cjs"
   },
   "devDependencies": {
     "expect.js": "^0.3.1",
-    "grunt": "^1.4.1",
-    "grunt-contrib-watch": "^1.1.0",
     "grunt-git-authors": "^3.2.0",
-    "grunt-mocha-test": "^0.13.3",
     "mocha": "^9.2.0"
   },
   "license": "MIT",
