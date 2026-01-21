@@ -1,6 +1,6 @@
 (function() {
 
-  const resizeFudge = 30
+  const resizeFudge = 40
   const defaultHeight = 150 - resizeFudge
 
   function expand(text) {
