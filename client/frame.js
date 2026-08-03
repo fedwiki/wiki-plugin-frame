@@ -99,7 +99,44 @@
       frame.setAttribute(attr, value)
     }
     $item.append(frame)
-    $item.append($('<p>').html(expand(parsed.caption)))
+    $item.append($('<p>').css({ margin: 0, padding: '2px 14px 10px 0' }).html(expand(parsed.caption)))
+
+    const sizeTip = document.createElement('div')
+    sizeTip.className = 'frame-size-tip'
+    Object.assign(sizeTip.style, {
+      display: 'none', position: 'absolute', left: '50%', bottom: '12px',
+      transform: 'translateX(-50%)', padding: '2px 6px', font: '11px/1.2 monospace',
+      color: '#222', background: 'rgba(255,255,255,0.95)', border: '1px solid #999',
+      borderRadius: '3px', whiteSpace: 'nowrap', pointerEvents: 'none', zIndex: '5',
+      boxShadow: '0 1px 3px rgba(0,0,0,0.15)'
+    })
+
+    const handleStyle = {
+      position: 'absolute', bottom: '0', zIndex: '4', color: '#adb5bd',
+      background: 'transparent', touchAction: 'none', userSelect: 'none'
+    }
+    const heightHandle = document.createElement('div')
+    heightHandle.className = 'frame-handle frame-handle-height'
+    heightHandle.title = 'Drag to resize height'
+    heightHandle.setAttribute('role', 'separator')
+    Object.assign(heightHandle.style, handleStyle, {
+      left: '0', right: '14px', height: '10px', cursor: 'ns-resize',
+      display: 'flex', alignItems: 'center', justifyContent: 'center'
+    })
+    heightHandle.appendChild(handleBar('2rem', '3px'))
+
+    const cornerHandle = document.createElement('div')
+    cornerHandle.className = 'frame-handle frame-handle-corner'
+    cornerHandle.title = 'Drag to resize'
+    cornerHandle.setAttribute('role', 'separator')
+    Object.assign(cornerHandle.style, handleStyle, {
+      right: '0', width: '14px', height: '14px', cursor: 'nwse-resize'
+    })
+    const barAtCorner = { position: 'absolute', right: '1px', bottom: '1px' }
+    cornerHandle.appendChild(handleBar('10px', '3px', barAtCorner))
+    cornerHandle.appendChild(handleBar('3px', '10px', barAtCorner))
+
+    $item.append(sizeTip, heightHandle, cornerHandle)
     resize($item, parsed.height)
   }
 
@@ -110,10 +147,13 @@
   }
 
   function emit($item, item) {
+    restorePageWidth($item)
+    delete $item.get(0).dataset.tempResized
     const parsed = parse(item.text)
     $item.css({
       'background-color': '#eee',
-      'padding': '15px'
+      'padding': '10px 10px 0',
+      'position': 'relative'
     })
     if (!parsed.hasOwnProperty('error')) {
       drawFrame($item, item, parsed)
@@ -135,6 +175,7 @@
     for (let topic of parsed.sources) {
       addSource(div, topic)
     }
+    if (iframe) enableDragResize($item, iframe)
     return $item.on('dblclick', () => {
       return wiki.textEditor($item, item)
     })
@@ -225,10 +266,127 @@
     wiki.showResult(result, options)
   }
 
+  // Visual mark inside a resize handle (rounded bar / L-corner segment)
+  function handleBar(width, height, extra = {}) {
+    const bar = document.createElement('div')
+    Object.assign(bar.style, {
+      width, height, borderRadius: '999px',
+      background: 'currentColor', pointerEvents: 'none', ...extra
+    })
+    return bar
+  }
+
+  // Apply height directly on the iframe
+  function setFrameHeight(el, heightPx) {
+    const iframe = el.querySelector('iframe')
+    if (!iframe) return
+    const h = Math.max(60, heightPx)
+    iframe.style.height = `${h}px`
+    iframe.setAttribute('height', h)
+    el.dataset.height = h
+  }
+
+  // Clear temporary page widening
+  function restorePageWidth($item) {
+    const page = $item.parents('.page').get(0)
+    if (page) page.style.width = page.style.flex = ''
+  }
+
+  // Temporary drag-resize for this session
+  function enableDragResize($item, iframe) {
+    const el = $item.get(0)
+    const page = $item.parents('.page').get(0)
+    const sizeTip = el.querySelector('.frame-size-tip')
+    const minW = Math.round(iframe.getBoundingClientRect().width) || 80
+
+    // Prevent item drags from clashing with resize handle drags
+    const ignoreResizeInSortable = () => {
+      const $story = $item.closest('.story')
+      if (!$story.length || !$story.data('ui-sortable')) return
+      const cancel = $story.sortable('option', 'cancel') || ''
+      if (!cancel.includes('.frame-handle')) {
+        $story.sortable('option', 'cancel', `${cancel}, .frame-handle`)
+      }
+    }
+    ignoreResizeInSortable()
+
+    // Pin other story items + journal so only this frame reflows when the page grows
+    const pinNeighbors = () => {
+      const story = el.closest('.story')
+      if (story) {
+        for (const item of story.children) {
+          if (item === el || !item.classList.contains('item') || item.style.maxWidth) continue
+          item.style.maxWidth = `${item.offsetWidth}px`
+        }
+      }
+      const journal = page && page.querySelector('.journal')
+      if (journal && !journal.style.maxWidth) journal.style.maxWidth = `${journal.offsetWidth}px`
+    }
+
+    // Widen the page with the frame; wiki width at bind is the minimum
+    const applyWidth = (px) => {
+      if (!page) return minW
+      const maxW = Math.max(minW, (window.innerWidth || 1200) - 24)
+      const width = Math.min(maxW, Math.max(minW, Math.round(px)))
+      if (width <= minW) {
+        page.style.width = page.style.flex = ''
+      } else {
+        pinNeighbors()
+        const pageW = width + (page.offsetWidth - Math.round(iframe.getBoundingClientRect().width))
+        page.style.width = `${pageW}px`
+        page.style.flex = `0 0 ${pageW}px`
+      }
+      return width
+    }
+
+    // Shared move handler
+    const onDrag = (e, start, alsoWidth) => {
+      const h = Math.max(60, Math.round(start.h + e.clientY - start.y))
+      setFrameHeight(el, h)
+      el.dataset.tempResized = 'true'
+      let text = `HEIGHT ${Math.max(1, h - resizeFudge)}`
+      if (alsoWidth) text += ` × WIDTH ${applyWidth(start.w + e.clientX - start.x)}`
+      sizeTip.textContent = text
+      sizeTip.style.display = 'block'
+    }
+
+    // Wire pointer drag on one handle (height bar or corner)
+    const bindHandle = (handle, alsoWidth) => {
+      handle.addEventListener('pointerdown', e => {
+        if (e.button) return
+        ignoreResizeInSortable()
+        e.preventDefault()
+        e.stopPropagation()
+        el.style.height = el.style.maxHeight = ''
+        const box = iframe.getBoundingClientRect()
+        const start = { x: e.clientX, y: e.clientY, w: box.width, h: box.height }
+        try { handle.setPointerCapture(e.pointerId) } catch (err) { /* unsupported */ }
+        const move = ev => onDrag(ev, start, alsoWidth)
+        const up = () => {
+          handle.removeEventListener('pointermove', move)
+          handle.removeEventListener('pointerup', up)
+          handle.removeEventListener('pointercancel', up)
+          sizeTip.style.display = 'none'
+        }
+        handle.addEventListener('pointermove', move)
+        handle.addEventListener('pointerup', up)
+        handle.addEventListener('pointercancel', up)
+      })
+      handle.addEventListener('mousedown', e => {
+        ignoreResizeInSortable()
+        e.preventDefault()
+        e.stopPropagation()
+      }, true)
+    }
+
+    bindHandle(el.querySelector('.frame-handle-height'), false)
+    bindHandle(el.querySelector('.frame-handle-corner'), true)
+  }
+
   function resize($item, height) {
     const el = $item.get(0)
-    el.dataset.height = height+resizeFudge
-    el.querySelector('iframe').setAttribute('height', height+resizeFudge)
+    if (el.dataset.tempResized === 'true') return
+    setFrameHeight(el, height+resizeFudge)
   }
 
   function frameListener(event) {
