@@ -120,10 +120,11 @@
     heightHandle.title = 'Drag to resize height'
     heightHandle.setAttribute('role', 'separator')
     Object.assign(heightHandle.style, handleStyle, {
-      left: '0', right: '14px', height: '10px', cursor: 'ns-resize',
-      display: 'flex', alignItems: 'center', justifyContent: 'center'
+      left: '0', right: '14px', height: '10px', cursor: 'ns-resize'
     })
-    heightHandle.appendChild(handleBar('2rem', '3px'))
+    heightHandle.appendChild(handleBar('2rem', '3px', {
+      position: 'absolute', left: '50%', bottom: '1px', transform: 'translateX(-50%)'
+    }))
 
     const cornerHandle = document.createElement('div')
     cornerHandle.className = 'frame-handle frame-handle-corner'
