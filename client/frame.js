@@ -331,7 +331,7 @@ We recommend sending the following message: `, {
   if (typeof window !== "undefined" && window !== null) {
     wiki = window.wiki
     window.plugins.frame = {emit, bind}
-    if (typeof window.frameListener !== "undefined" || window.frameListener == null) {
+    if (typeof window.frameListener === "undefined" || window.frameListener == null) {
       window.frameListener = frameListener
       window.addEventListener("message", frameListener)
     }
